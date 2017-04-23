@@ -1,0 +1,52 @@
+% ------------------
+% Assignment 1, Program a2
+% Requirements:      A program that doesn't use arrays, functions or procedures
+% Description:       Integers and their operations.  Tests a number of
+%                    integer operations, verifies that precedence rules 
+%                    work correctly.
+% Expected Output:   "b = 5; c = 8; d = -5; e = 5; f = -20; g = 2"
+%                    "h = -17; k = 10"
+% Key Rules Used:
+%             output:expression
+%               type:'int'
+%         expression:integer
+%                    '-' expression
+%                    expression '+' expression
+%                    expression '-' expression
+%                    expression '*' expression
+%                    expression '/' expression
+% ------------------
+{
+    % variable declaration
+    int a 
+    int b
+    int c
+    int d 
+    int e
+    int f
+    int g
+    int h
+    int k
+
+    % variable initialisation
+    a = 2
+    b = 5
+
+    % check operation correctness, including associativity
+    c = a + b + 1  % c = 8
+    d = a - 2 - b  % d = -5
+    e = -d         % e = 5
+    f = a * d * 2  % f = -20
+    g = 25 / b / a % g = 2 (integer division)
+
+    % output values of c, d, e, f, g
+    put "b = ", b, "; c = ", c, "; d = ", d, "; e = ", e, 
+        "; f = ", f, "; g = ", g, skip
+ 
+    % check precedence; ensure brackets override default precedence
+    h = f + d * g / -3   % h = -17
+    k = (f + d * g) / -3 % k = 10
+
+    % output values of h, k
+    put "h = ", h, "; k = ", k, skip
+}

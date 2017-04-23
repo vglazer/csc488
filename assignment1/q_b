@@ -1,0 +1,28 @@
+% ------------------
+% Assignment 1, Program b
+% Requirements:      A program using arrays but not functions or procedures 
+% Description:       This program allocates an array of the maximum allowed
+%                    size, assigns values to it and uses it in a comparison.
+%                    If all goes as planned, the program outputs "success".
+% Expected Output:   "success"
+% Key Rules Used:  
+%    declaration:    type identifier '[' integer ']'
+%       variable:    arrayname '[' expression ']'
+%     expression:    expression '<' expression
+%      arrayname:    identifier
+% ------------------
+{
+   % variable declaration
+   int array[32767]
+
+   % variable initialization 
+   array[0] = 2
+   array[32766] = -32767
+
+   % array use
+   if array[32766] < array[0] then
+      put "success"
+   else
+      put "failure"
+   fi
+}
