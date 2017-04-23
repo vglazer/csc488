@@ -1,0 +1,13 @@
+% Verify that no declarations can follow a statement [ parse error expected ]
+% Key Productions Involved:
+% program:  scope ;
+%
+% scope:  '{' declaration_list statement_list '}'  
+%	|	'{' statement_list  '}'
+%	;
+{
+    % variable declaration and initialisation
+    int a
+    a = 5
+    int b
+}
