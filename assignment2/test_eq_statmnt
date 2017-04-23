@@ -1,0 +1,12 @@
+% Verify that a = b = c is a valid _statement_
+% Key Productions Involved:
+%     statement:  variable '=' expression  
+%     expression: expression '=' expression
+{
+    % variable declaration and initialisation
+    boolean a boolean b boolean c
+    b = true c = false
+    
+    % Here the first = is parsed as assignment and the second as equality
+    a = b = c
+}

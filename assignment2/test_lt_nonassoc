@@ -1,0 +1,16 @@
+% Verify that < is not associative [ parse error expected ]
+% Declarations Involved:     
+%     %nonassoc '<'
+% Key Productions Involved:  
+%     expression: expression '<' expression
+{
+    % variable declaration and initialisation
+    int a int b int c
+    b = 5 c = 20
+    
+    % The next line should result in a parse error, since "a < b < c" is 
+    % not a valid expression 
+    if a < b < c then 
+        put "This line never printed", skip
+    fi
+}    

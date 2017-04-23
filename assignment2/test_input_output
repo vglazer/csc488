@@ -1,0 +1,34 @@
+% Test productions pertaining to input and output
+% Key Productions Involved:
+%     statement:    GET input
+%     outputlist: outputlist ',' output
+%          |   output
+%          ;
+% 
+%     output:  expression 
+%	       |   TEXTCONST 
+%	       |   SKIP 
+%          ;
+%
+%     input:   input ',' variable
+%         |    variable
+{	
+	% variable declaration
+	int digits int n
+
+	% get integers from user (note the use of get to input 
+    % two variables at once)
+	put "Enter two integers: ", skip
+	get n, m 
+
+    put "The second integers was ", m, skip
+
+	digits = 0
+	do 
+	    n = n / 10
+		digits = digits + 1
+	until n = 0
+
+    % note that digits + 0  is an expression
+	put "The number has ", digits + 0, " digit(s)", skip
+}
