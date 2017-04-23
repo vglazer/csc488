@@ -36,7 +36,7 @@ CC = gcc
 #	-g needed for debuging
 #	-Wall	for really thorough checking
 CFLAGS = -g -Wall -ansi -pedantic -O2
-#	Flags and files for the link editor (if required)
+#	Linker flags 
 LINKFLAGS = 
 # on OS X the flex library is called l rather than fl. go figure.
 PLATFORM = $(shell uname -s)
@@ -45,7 +45,7 @@ ifeq ($(PLATFORM),Darwin)
 else
 	FLEXLIB = fl
 endif
-LINKFILES = -l$(FLEXLIB)
+LINKFLAGS = -l$(FLEXLIB)
 
 ###########################################################################
 #	
@@ -67,7 +67,7 @@ all:	compiler
 compiler: $(TARGET)
 
 $(TARGET): $(OFILES)	
-	$(CC) -o $(TARGET) $(OFILES) $(LINKFLAGS) $(LINKFILES)
+	$(CC) -o $(TARGET) $(OFILES) $(LINKFLAGS)
 
 main main2.o : main2.c $(HCOMMON) 
 	$(CC) -c $(CFLAGS) main2.c
