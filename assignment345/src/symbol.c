@@ -1,19 +1,19 @@
 /********************************************************/
-/*							                            */
-/*    symbol.c						                    */
-/*    Symbol table module for the CSC488S Project	    */
-/*							                            */
+/*                                                      */
+/*    symbol.c                                          */
+/*    Symbol table module for the CSC488S Project       */
+/*                                                      */
 /********************************************************/
 
      
 /********************************************************/
-/*   Include common definitions				            */
+/*   Include common definitions                         */
 /********************************************************/
 #include "common.h"
 #include "globalvars.h"
 
 /********************************************************/
-/*   Include interface to this module			        */
+/*   Include interface to this module                   */
 /********************************************************/
 #include  "symbol.h"
 
@@ -42,10 +42,10 @@ static int orderNumber;
 static int top;
 
 /********************************************************/
-/*							                            */
-/*   Utility procedures and functions used by the 	    */
-/*   symbol table module GO HERE			            */
-/*							                            */
+/*                                                      */
+/*   Utility procedures and functions used by the       */
+/*   symbol table module GO HERE                        */
+/*                                                      */
 /********************************************************/
 
 /* 
@@ -119,13 +119,13 @@ void convertEntry(SymbTabEntryP src, SymbTabEntryInfoP dest)
 }
 
 /********************************************************/
-/*							                            */
-/*   Procedures and functions exported by the 		    */
-/*   symbol table module				                */
-/*							                            */
+/*                                                      */
+/*   Procedures and functions exported by the           */
+/*   symbol table module                                */
+/*                                                      */
 /********************************************************/
 
-/*   Initialize the symbol table			*/
+/*   Initialize the symbol table            */
 void symbolInitialize(void) 
 {
     SymbTable = calloc(SymbTableSize, sizeof(SymbTabEntry)); 
@@ -138,7 +138,7 @@ int symbolLexicLevel(void)
     return lexicLevel;
 }
 
-/*   Finalize the symbol table				*/
+/*   Finalize the symbol table              */
 void symbolFinalize(void)
 {
     free(SymbTable);    
