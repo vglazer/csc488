@@ -120,7 +120,7 @@ typedef enum StmtType_tag {
   Sassert , 	/* assert                               */
   Scall ,       /* procedure call                       */
   Sscope,       /* scope                                */
-  Sfor		    /* for					                */
+  Sfor          /* for					                */
 } StmtType;
 
 /********************************************************/
