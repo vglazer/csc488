@@ -117,7 +117,7 @@ typedef enum StmtType_tag {
   Sresult ,     /* result                               */
   Sput ,        /* put                                  */
   Sget ,        /* get                                  */
-  Sassert ,	    /* assert                               */
+  Sassert , 	/* assert                               */
   Scall ,       /* procedure call                       */
   Sscope,       /* scope                                */
   Sfor		    /* for					                */
