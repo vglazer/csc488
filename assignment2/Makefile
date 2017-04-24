@@ -35,7 +35,7 @@ BISONFLAGS = --debug --file-prefix=parser --defines --verbose
 CC = gcc
 #	-g needed for debuging
 #	-Wall	for really thorough checking
-CFLAGS = -g -Wall -ansi -pedantic -O2
+CFLAGS = -g -Wall -ansi -pedantic
 #	Linker flags 
 LINKFLAGS = 
 # on OS X the flex library is called l rather than fl. go figure.
