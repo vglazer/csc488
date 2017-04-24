@@ -1,16 +1,14 @@
 #ifndef _COMMON_H_
 /********************************************************/
-/* common.h							*/
-/* common definitions that are used throughout the	*/
-/* compiler						*/
-/*							*/
+/* common.h                                             */
+/* common definitions that are used throughout the      */
+/* compiler                                             */
+/*                                                      */
 /********************************************************/
 #define _COMMON_H_
 
-static const char * common_h_RCSId = "$RCSfile: common.h,v $ $Revision: 1.1 $ $Date: 2003/02/27 14:09:56 $" ;
-
 /************************************************/
-/*  C libraries that are widely used		*/
+/*  C libraries that are widely used        */
 /************************************************/
 
 #include <stdio.h>
@@ -36,34 +34,34 @@ static const char * common_h_RCSId = "$RCSfile: common.h,v $ $Revision: 1.1 $ $D
 #endif
 
 /************************************************/
-/*  Limits on the source language.		*/
-/*  Enforced in scanner.c			*/
+/*  Limits on the source language.              */
+/*  Enforced in scanner.c                       */
 /************************************************/
 
 /************************************************/
-/*  Limit on length of identifier		*/
+/*  Limit on length of identifier               */
 /************************************************/
 
 #define  MAX_IDENTIFIER  32
 
 /************************************************/
-/*  Limit on range of integer values		*/
-/* ASSUMES machine memory is 16-bit short int	*/
-/* Note that range is symmatric about zero so	*/
-/* -32768 can be used for UNDEFINED value	*/
+/*  Limit on range of integer values            */
+/* ASSUMES machine memory is 16-bit short int   */
+/* Note that range is symmatric about zero so   */
+/* -32768 can be used for UNDEFINED value       */
 /************************************************/
 
 #define  MAX_INTEGER   32767
 
 /************************************************/
-/*  Limit on length  of text (string)		*/
-/* 255 characters plus 1 for terminating null	*/
+/*  Limit on length  of text (string)           */
+/* 255 characters plus 1 for terminating null   */
 /************************************************/
 
 #define  MAX_TEXT   256
 
 /************************************************/
-/*  Type used to carry values on parse stack	*/
+/*  Type used to carry values on parse stack    */
 /************************************************/
 
 typedef union {
