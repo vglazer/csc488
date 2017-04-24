@@ -1,0 +1,25 @@
+% ------------------ 
+% Assignment 1, Program h
+% Requirements:      A program that uses a procedure declared within 
+%                    another procedure
+% Description:       This program uses a nested procedure declaration
+% Expected Output:   inner proc sees i = 6
+%                    outer proc sees i = 6  
+% Key Rules Used:    No new rules used
+% ------------------ 
+{
+    proc outer : {
+        int i        
+        
+        % nested procedure declaration 
+        proc inner : {
+            i = i + 1
+            put "inner proc sees i = ", i, skip
+        }
+
+        i = 5
+        inner
+        put "outer proc sees i = ", i, skip 
+    }
+    outer
+}

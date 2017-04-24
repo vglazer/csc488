@@ -1,0 +1,36 @@
+% Errors that can't be forced by input program at this time:
+% EinvalidScalarType, EinvalidReturnType, EemptyScope (caught
+% by parser not semantic checker), EdeclAfterStatement (caught
+% by parser)
+% Errors that can be forced by input prog but arent't tested
+% in testprog_errors:  EemptyTree, Eunknown
+{
+    boolean a[20]
+    boolean b
+    int j[10] 
+    int k
+    int i
+
+    % undeclared array
+    p[1] = 1
+
+    % Type mismatch
+    a[1] = 30
+     
+    % subscript type mismatch
+    a[b] = 6
+
+    % EtypeMismatch
+    i = a[0] 
+
+    % EinvalidPutArgs
+    put a[0]  
+
+    % EillegalSubscripting
+    k[10] = 2 
+
+    % EexpectedSubscript
+    if (a) then
+       put "hello again"
+    fi
+}

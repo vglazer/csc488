@@ -1,0 +1,46 @@
+% ------------------
+% Assignment 1, Program d
+% Requirements:      A program using non-recursive procedures without 
+%                    parameters
+% Description:       This program outputs the parity of integers between
+%                    1 and 7.		
+% Expected Output:   "odd: 1"
+%                    "even: 2"
+%                    "odd: 3"
+%                    "even: 4" 	
+%                    "odd: 5"
+%                    "even: 6"
+%                    "odd: 7"
+% Key Rules Used:
+%      statement:    'return'
+%                    procedurename
+%    declaration:    'proc' identifier ':' scope
+%  procedurename:    identifier
+% ------------------
+{
+    % output parity of integers between 1 and 7 (declaration)
+    proc parity : {
+        % declare local variables
+        int n 
+        int q 
+        
+        n = 1
+        while n <= 10 do
+            q = n / 2                
+            if q * 2 = n then
+                put "even: ", n, skip
+            else 
+                put "odd: ", n, skip
+            fi 
+            n = n + 1
+
+            % skip 7, 9 and 10
+            if n = 8 then
+                return
+            fi
+        od
+    }
+
+    % call procedure
+    parity
+}

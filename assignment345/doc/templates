@@ -1,0 +1,407 @@
+=========================
+CODE GENERATION TEMPLATES
+=========================
+
+*************************
+* VARIABLE DECLARATIONS *
+*************************
+To process variable declarations, just do a PUSH UNDEFINED appropriately many
+times (once for scalars, arrays_size times for arrays).  To process routine
+declarations push the address of the body of the function, and a branch around
+the body, then emit the routine body.
+
+
+***************
+* EXPRESSIONS *
+***************
+
+-----------
+Unary minus 
+-----------
+-expression
+
+PUSH [ value of expression ]
+NEG
+
+
+
+
+---------------------------
+Binary arithmetic operators
+---------------------------
+expression1 + expression2
+expression1 - expression2
+expression1 * expression2
+expression1 / expression2
+
+PUSH [ value of expression1 ]  
+PUSH [ value of expression2 ]  
+ADD, SUB, MUL or DIV         
+
+
+
+
+
+--------------------------------
+Boolean and comparison operators
+--------------------------------
+! expression
+
+PUSH [ value of expression ] ; to negate a boolean, simply
+NEG                          ; subtract its value from 1, 
+PUSH 1                       ; so that 1 => -1 + 1 = 0 and 
+ADD                          ;         0 => -0 + 1 = 1 
+
+
+expression1 & expression2            
+
+        PUSH [ value of expression1 ] ; if expression1 evaluates to 
+        PUSH [ label exp1f          ] ; false the entire conjunction  
+        BF                            ; is false, otherwise the   
+        PUSH [ value of expression2 ] ; conjunction has the same  
+        PUSH [ label exit           ] ; value as expression2
+        BR          
+:exp1f  PUSH 0                         
+:exit     
+          
+
+expression1 | expression2
+
+        PUSH [ value of expression1 ] ; if expression1 evaluates to  
+                                      ; true (i.e. its negation
+        NEG                           ; evaluates to false) then the  
+        PUSH 1                        ; entire disjunction is true, 
+        ADD                           ; otherwise the disjunction has
+        PUSH [ label exp1t          ] 
+        BF                            ; the same value as expression2
+        PUSH [ value of expression2 ] 
+        PUSH [ label exit           ]
+        BR
+:exp1t  PUSH 1                     
+:exit
+
+
+expression1 = expression2
+expression1 < expression2
+
+PUSH [ value of expression1 ]
+PUSH [ value of expression2 ]
+EQ, LT
+
+
+expression1 <= expression2
+
+PUSH [ value of expression1 ] ; expression1 <= expression2      iff 
+PUSH [ value of expression2 ] ; expression1 -  expression2 <= 0 iff
+SUB                           ; expression1 -  expression2 <  1
+PUSH 1
+LT
+
+
+expression1 > expression2
+
+PUSH [ value of expression2 ] ; expression1 > expression2 iff
+PUSH [ value of expression1 ] ; expression2 - expression1 < 0
+SUB
+PUSH 0
+LT
+
+
+expression1 >= expression2
+
+PUSH [ value of expression2 ] ; expression1 >= expression2      iff
+PUSH [ value of expression1 ] ; expression2 -  expression1 <= 0 iff
+SUB                           ; expression2 -  expression1 <  1
+PUSH 1
+LT
+
+
+expression1 # expression2
+
+PUSH [ value of expression1 ] ;    expression1 # expression2  iff
+PUSH [ value of expression2 ] ; ! (expression1 = expression2)
+EQ
+NEG
+PUSH 1
+ADD
+
+
+
+
+----------------
+Ternary operator
+----------------
+expression1 ? expression2 : expression3
+
+       PUSH [ value of expression1 ] ; if expression1 evaluates to 
+       PUSH [ label expf           ] ; true ? is assigned the value of 
+       BF                            ; expression2, otherwise it is 
+       PUSH [ value of expression2 ] ; assigned the value of 
+       PUSH [ label exit           ] ; expression3
+       BR
+:expf  PUSH [ value of expression3 ]
+:exit
+
+
+
+**************
+* STATEMENTS *
+**************
+
+----------
+Assignment
+----------
+variable = expression
+
+ADDR [ lexic level of variable ] [ order number of variable ]
+PUSH [ value of expression     ]
+STORE
+
+
+
+
+------------
+Conditionals
+------------
+if expression then
+    statements
+fi
+
+       PUSH [ value of expression ] ; if expression evaluates to 
+       PUSH [ label exit          ] ; true execute statements, 
+       BF                           ; otherwise skip over them
+       [      statements          ]
+:exit  
+   
+
+if expression then
+    statements1
+else 
+    statements2
+fi
+
+        PUSH [ value of expression ] ; if expression evaluates to
+        PUSH [ label condf         ] ; true execute statements1
+        BF                           ; and skip over statements2,
+        [      statements1         ] ; otherwise skip over
+        PUSH [ label exit          ] ; statements1 and execute 
+        BR                           ; statements2
+:condf  [      statements2         ]
+:exit
+
+
+
+
+-----
+Loops
+-----
+while expression do
+    statements    
+od
+
+:evalexp  PUSH [ value of expression ] ; if expression evaluates to   
+          PUSH [ label exit          ] ; false skip statements,   
+          BF                           ; otherwise execute statements
+          [      statements          ] ; and evaluate expression once
+          PUSH [ label evalexp       ] ; more
+          BR
+:exit
+ 
+
+do 
+    statements    
+until expression
+
+:body  [      statements          ] ; first, execute statements 
+       PUSH [ value of expression ] ; then, if expression evaluates to
+       PUSH [ label body          ] ; false execute statements once more
+       BF                           ; otherwise exit
+
+
+
+
+------------
+Input/Output
+------------
+put integer_expression 
+
+PUSH   [ value of integer_expression ]
+PRINTI
+
+
+put skip
+
+PUSH 012 ; ASCII for '\n'
+PRINTC
+
+
+put textstring 
+
+[ for each character c in textstring do ] 
+      PUSH   [ ASCII value of c ]
+      PRINTC
+[ od                                    ]
+
+
+get integer_variable 
+
+ADDR  [ lexic level of integer_variable  ] 
+      [ order number of integer_variable ]
+READI
+STORE
+
+
+
+
+----------
+Procedures
+----------
+Caller's view:
+
+procname(arg1, arg2, ... , argn)
+
+          ADDR [ procname body's lexic level ] 0  ; back up proc body's display
+          PUSH [ label retaddr               ]    
+	  [ for each argument arg do         ]    
+	      PUSH [ value of arg ]           
+          [ od                               ]    
+
+          ADDR [ proc's lexic level] [ proc's order number]
+          LOAD
+          BR                                    ; branch to proc code                
+:retaddr  SETD [ procname's lexic level  + 1]   ; restore proc body's display
+ 
+
+Calee's view:
+
+           PUSHMT
+           PUSH n ; n is the number of args
+           SUB
+           SETD [ proc body's lexic level ]     ; to include passed params
+	       [  declarations               ]
+           [  statements                 ] 
+:proclean  PUSHMT
+           ADDR [ proc body's lexic level ] 0
+           SUB
+           POPN
+           BR
+
+
+
+
+---------
+Functions
+---------
+Caller's view:
+
+funcname(arg1, arg2, ... , argn)
+
+	  PUSH [ UNDEFINED ]		     ; space for return value  
+          ADDR [ funcname's lexic level + 1 ] 0  ; backup func body's display 
+          PUSH [ label retaddr          ]    ; return address 
+	  [ for each argument arg do    ]    ; arguments
+	      PUSH [ value of arg ]           
+          [ od                          ]    
+          PUSH [ address of func_code   ]    ; address of function
+          BR                                 ; code
+:retaddr  SETD [ funcname's lexic level + 1] ; restore proc body's display
+
+Callee's view:
+
+           ; set the display at funcname's lexic level to point
+           ; to the first argument
+           PUSHMT  
+           PUSH n    
+           SUB
+           SETD [ funcname's lexic level ] 
+    	   [ declarations                ]
+           [ statements                  ]
+
+:funclean  ; pop the current stack frame (result and old 
+	       ; display value stay on the stack)
+           PUSHMT
+           ADDR [ funcname body's lexic level ] 0
+	       SUB
+	       POPN
+           BR
+
+
+
+-----
+Scope
+-----
+; back up display for scope's lexic level
+ADDR [ scope's lexic level ] 0
+
+; update display
+PUSHMT
+SETD [ scope's lexic level ]
+
+[ allocate space for 
+  locals by processing 
+  declarations             ]
+
+[ statements (scope body)  ]
+
+; pop locals
+PUSHMT 
+ADDR [ scope's lexic level ] 0 
+SUB
+POPN
+
+; restore display
+SETD [ scope's lexic level ]
+
+
+
+
+--------------
+Assorted jumps
+--------------
+exit
+
+[for each lexic level between exit lex level and while loop's start lex level]
+    ; emit the minor scope cleanup code:
+    PUSHMT
+    ADDR lexiclevel 0
+    SUB
+    POPN            ; pop the space allocated at this lexiclevel
+    SETD lexiclevel ; restore the previous display for this lexic level
+[end for]
+PUSH [ label exit ] ; unconditionally branch to the next statement
+BR                  ; after the loop
+
+
+return
+
+[for each lexic level between return lex level and proc body's lex level]
+    ; emit the minor scope cleanup code:
+    PUSHMT
+    ADDR lexiclevel 0
+    SUB             
+    POPN            ; pop the space allocated at this lexiclevel
+    SETD lexiclevel ; restore the previous display for this lexic level
+[end for]
+PUSH [ label proclean ] ; unconditionally branch to code that pops
+BR                      ; the current stack frame and returns control
+                        ; to the caller
+
+
+result expression
+
+ADDR [ funcname body's lexic level ] 0
+PUSH 3
+SUB
+[ push the value of expression ]
+STORE ; store the result 
+[for each lexic level between result lex level and funcname's lex level]
+    ; emit the minor scope cleanup code: 
+    PUSHMT
+    ADDR lexiclevel 0
+    SUB
+    POPN            ; pop the space allocated at this lexiclevel
+    SETD lexiclevel ; restore the previous dipslay for this lexic level
+[end for]
+PUSH [ label funclean         ]
+BR
+

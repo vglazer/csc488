@@ -1,0 +1,26 @@
+{
+    int countdown1 ( int i ) : forward
+    int countdown2 ( int i ) : forward
+
+    int countdown1 ( int i ) : 
+    {
+        if ( i < 0 ) then
+            result 0
+        else 
+            put i, skip
+            result countdown2( i - 1 )  
+        fi
+    }   
+
+    int countdown2 ( int i ) : 
+    {
+        if ( i < 0 ) then
+            result 0
+        else 
+            put i, skip
+            result countdown1( i - 1 )  
+        fi
+    }   
+
+    put countdown1 ( 10 ), skip
+}

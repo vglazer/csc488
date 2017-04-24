@@ -1,0 +1,40 @@
+% ast_test is an app written in the csc488 source language
+% designed to test the abstract syntax tree built by the compiler
+% This program uses a significant portion of the language, 
+% including arrays, functions and procedures.
+{
+    int array[100]
+    int func (int i, int j) : 
+    {
+        if (!(i < j) = (j < 100)) then
+        {
+            int i
+            i = 1
+        }
+        else
+            do 
+                while true do
+                    put "hello"
+                    exit
+                od
+                put "still doing..", skip
+            until false
+            result i
+        fi
+    }
+    proc printNotted(boolean value) :
+    {
+        int number 
+        number = ((!value) & true ? 1 : 0)
+        put "input boolean notted:", number, skip  
+    }
+    proc printSquaredPlusFive(int value) :
+    {
+        put "input number squared:", value*value + 5, skip
+    }
+    
+    array[12] = 1000
+    put "hello world", func(array[12], 4), skip
+    printNotted(true)
+    printSquaredPlusFive(5)
+}

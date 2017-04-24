@@ -1,0 +1,51 @@
+% semantic_test is an app written in the csc488 source language
+% designed to test the compiler's symbol table and semantic checking. 
+% When symbol table tracing or dumping is turned on, the semantic
+% checker will print the symbol table immediately before exiting 
+% any scope.  The program does not contain any semantic errors,
+% so the semantic checker will accept it.
+% no arrays, functions or procedures are tested in this file
+{
+    int a
+    a = 0
+    {
+        int a
+        a = 1
+        put "a should be 1, it is: ", a, skip
+    } % symbol table output should contain two ints named a 
+    
+    {
+        put "entered scope with no vars", skip
+    } % entering and exiting this scope should not change 
+      % the symbol table.  Here output should be only int a 
+
+    while a # 10 do
+    { 
+        boolean b
+        int c
+        b = false
+        { 
+            int b
+            int d
+            d = 1000
+            b = 0 
+            {
+                put "in inner scope of loop, a=", a, skip
+                do 
+                    if b > 100 then
+                        exit
+                    else
+                        put "in inner do loop, b=", b, skip
+                    fi
+                    b = b * 2 + 1
+                until false
+            } % here a, b, c, b, d should be visible
+            d = d / 2 
+        } % a, b, c, b, d should be visible 
+        b = !b
+        c = 1
+        a = a + c
+    } % a, b, c should be visible 
+    od
+    put "final value of a:", a, skip
+} % a should be visible

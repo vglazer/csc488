@@ -1,0 +1,17 @@
+TESTING STRATEGY
+----------------
+
+<< AST BUILDING AND SEMANTIC CHECKING >>
+
+We decided to go with three rather large test cases involving a fairly
+representative sampling of language features, including I/O, both while and
+do..until loops with exits, if statements with else clauses, arrays,
+functions, procedures and expressions involving both boolean and arithmetic
+operators. One test case demonstrates that ast building is working properly,
+another shows that semantic analysis and symbol table manipulation are done
+correctly and the last one shows that all semantic errors are caught (except
+for ones that involve arrays, functions or procedures) by deliberately
+invoking them (it also shows that line numbers are handled properly).
+Separating ast testing from semantic testing allows us to demonstrate that
+arrays, functions and procedures are properly parsed even though we have yet
+to implement the corresponding semantic checking.

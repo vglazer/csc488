@@ -1,0 +1,35 @@
+% ------------------
+% Assignment 1, Program c
+% Requirements:      A program using loops including nested loops
+% Description:       This program uses an outer and inner loop to add
+%                    3 to a number (which is initially 0) until that
+%                    number is larger than 10
+% Expected Output:   "i = 12"
+% Key Rules Used: 
+%      statement:    'while' expression 'do' statement 'od'
+%                    'do' statement 'until' expression
+%                    'exit'
+%      expression:   expression '>''=' expression
+% ------------------
+{
+   % variable declaration
+   int i
+   int j
+
+   % variable initialization
+   i = 0
+
+   % nested loops
+   while (true) do
+     if (i > 10) then  %jp: added 'then'
+		exit
+     fi
+     j = 0
+     do
+        i = i + 1 
+        j = j + 1
+     until j >= 3 
+   od 
+
+   put "i = ", i, skip
+}

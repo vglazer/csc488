@@ -1,0 +1,78 @@
+==========================
+CODE GENERATION TESTS
+==========================
+
+============
+display_test
+============
+
+description:
+
+  display_test is an program written in the csc488 source language designed to
+  test that the code generator correctly emits code to restore the display on
+  closing a minor scope, returning from a function, returning from a
+  procedure, and exiting a loop.
+
+  No special flags are used in the execution of this test.
+
+instructions:
+
+    To run this test, attempt to compile the test from the root of the project
+    directory, like so:
+
+        $ src/compiler488 test/display_test
+
+expected output:
+    Compiling from source file test/display_test
+    Compilation begins
+
+    *** Abstract Syntax Tree ***
+            The tree is empty.
+
+    *** End Abstract Syntax Tree ***
+
+    Compilation Ends
+    Start Exectution         pc =     0, msp =   737, mlp =  8191
+            memory[ 729 .. 737 ] =        1       0       0      15       8       6       0       0  -32768
+    i = 10 (expected 10)
+    i = 10 (expected 10)
+    bar returns 14
+    i = 10 (expected 10)
+    i = 10 (expected 10)
+    End Execution    pc =   736, msp =   737, mlp =  8191    display[ 0 .. 19 ] =      737     737     737     737     737     737     737     737     737     737     737     737     737     737     737     737     737     737     737     737
+            memory[ 729 .. 737 ] =        1       0       0      15       8       6       0       0     737
+
+================
+q_a1 - q_h
+================
+
+description:
+
+   q_a1, q_a2, q_a3, q_b, q_c, q_d, q_e, q_f q_g and q_h are essentially the programs 
+   originally written for a1.  Some of these have been modified slightly to make them
+   more useful in the testing of code generation.  Together, they test almost every 
+   rule in the language.  See the comments at the beginning of each program for a 
+   detailed description.
+
+instructions:
+
+   To run one of these tests, attempt to compile it from the root of the project
+   directory.  To run q_a1, for example, type:
+   
+       $ src/compiler488 test/q_a1
+
+   We have also prepared a test script which runs display_test as well as q_a1, 
+   q_a2, q_a3, q_b, q_c, q_d, q_e, q_f, and q_h.  q_g is omitted because it requires
+   user input (q_g does work - it can be tested individually).  To execute this script,
+   type
+       
+       $ run_codegentests.sh 
+
+   from the test directory of the project.
+
+expected output:
+   
+   See the top of each program's file for its expected output.
+
+------------------------------------------------------------------------------
+$Id: INDEX.codegen,v 1.2 2003/04/01 00:46:09 g9macrya Exp $

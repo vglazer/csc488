@@ -1,0 +1,29 @@
+% ------------------
+% Assignment 1, Program g 
+% Requirements:    A program using input and ouput
+% Description:     This program calculates the number of digits in a number
+% Expected Output: "Enter an integer: [n]"
+%                  "The number has [d] digit(s)" 
+%                  (where [n] is the number entered by the user
+%                  and [d] is the number of decimal digits in [n])
+% Key Rules Used:  
+%      statement: 'get' input
+%          input: variable
+% ------------------
+{	
+	% variable declaration
+	int digits
+	int n
+
+	% get integer from user
+	put "Enter an integer: ", skip
+	get n
+
+	digits = 0
+	do {
+		n = n / 10
+		digits = digits + 1
+	} until (n = 0)
+
+	put "The number has ", digits, " digit(s)", skip
+}

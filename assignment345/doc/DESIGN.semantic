@@ -1,0 +1,93 @@
+DESIGN OVERVIEW
+---------------
+
+====================
+Abstract Syntax Tree
+====================
+We made a several modifications to the Abstract Syntax Tree definitions from
+definitions given in the starter code. 
+
+In the Object structure we changed each field in the 'ovalue' field to be
+pointers to their respective structures rather than the structures themselves.
+This approach allows us to create an Object to 'wrap' another node without
+copying it into the Object structure. Copying the node into the Object would
+cause any pointers to this node from nodes farther down in the tree to be
+invalidated. 
+
+In the StmtObj type we changed the type of the fields 'sstmt1' and 'sstmt2'
+from StmtP to ObjectP.  This allowed us to handle compound statements by
+having these fields each point to a list of contained statements.  For
+example, when encoding an if-then-else statement in a StmtObj we make the
+'sstmt1' field point to the list of statements in the if-clause, and the
+'sstmt2' field point to the list of statements in the else-clause. This
+allows us to use the Object structure to build up all lists of statements in a
+generic way (regardless of whether this list was eventually going to be part
+of a scope, or compound statement). 
+
+As well, in the StmtObject we added a string field 'pname' to record the name
+of a procedure when encoding a procedure call statement.  We decided this
+approach was simpler than encoding the procedure name as a literal expression
+in one of the StmtObj's ExpnP fields.
+
+To handle source coordinate tracking we added an integer field called 'line'
+to each AST node type except LitObj and Object.  When the parser makes calls
+to the AST module it passes the global 'line' variable set by the scanner. 
+
+=================
+Semantic Analysis
+=================
+Our basic strategy was to mimic the mutually recursive functions approach used
+in 'astDump.c'. 
+
+A single instance of a specialised struct of type 'commFlags' is used to
+propagate semantic information up the tree, one level at a time. At this
+point, its primary purpose is to help ensure 'exit' statements occur only
+inside 'do' or 'while' loops (later on, it will also be used to ensure
+'result' and 'return' statements occur only inside functions and procedures,
+respectively). During statement processing, the 'insideLoop' field of the
+struct is set to 'TRUE' whenever a loop is about to be checked. An error is
+then generated if an 'exit' statement is found when 'insideLoop' is 'FALSE'. 
+
+We have decided to report errors as they are detected (rather than bailing out 
+as soon as the first error is encountered), even though some of them might turn
+out to be spurious. Once semantic analysis is complete, we check the value of 
+the global errorOccured flag; if it's 'TRUE', no attempt to generate code is 
+made. Some of the error conditions we check for are essentially sanity checks 
+(i.e. they shouldn't happen, but we are including them for now anyway just
+to make sure our tree building works properly); these are marked as 'DEBUG' 
+errors.
+
+============
+Symbol table
+============
+We decided to implement the symbol table as a fixed-size (array-based) stack.
+This approach simplifies matters dramatically by automatically implementing
+the lookup rules for the language (assuming one starts at the top of the stack
+and works one's way down), and is generally very straightforward. We've also
+decided to treat major and minor scopes in exactly the same way, again for
+simplicity's sake. The internal representation of the symbol table is not 
+visible to the semantic analyser (a special public entry format is used 
+instead), so that switching to a list-based implementation or one that 
+distinguishes between major and minor scopes (if the need arises in the future)
+should be fairly painless.
+
+Internally, each entry consists of the symbol identifier, its kind (i.e.
+variable, function or procedure), type (integer scalar, boolean array, etc.)
+and a pair of values ("lexic level" and "order number") that identify the
+entry uniquely within the table (those two will be used in code generation).
+There's also a "number of elements" field, used for entries representing
+arrays.   
+
+Global variables (declared static to minimise namespace pollution) are used to
+keep track of the current lexic level and order number, as well as the index
+of the top of the stack.
+
+The public symbol table interface includes functions that allow the semantic
+analyser to signal the beginning and end of a scope (symbolEnterScope() and
+symbolExitScope(), respectively), determine the current lexic level
+(symbolLexicLevel(); this is useful for checking whether a given identifier is
+declared multiple times in a given scope), add a new symbol to the table
+(symbolAdd()), look up a symbol (symbolLookup()) and dump either a particular
+entry or the entire table to some specified stream (symbolDumpTable() and
+symbolDumpTableEntry(), respectively()).
+

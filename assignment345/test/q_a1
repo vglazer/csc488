@@ -1,0 +1,67 @@
+% ------------------
+% Assignment 1, Program a1
+% Requirements:      A program that doesn't use arrays, functions or procedures
+% Description:       Booleans and their operations.  Performs a series of
+%                    operations on boolean variables, checks that operator
+%                    precedence.  Also tests use of uppercase and lowercase
+%                    identifiers for variables.
+% Expected Output:   "C = 0; D = 1; E = 1; F = 0"
+% Key Rules Used:
+%        program:    scope
+%      statement:    variable '=' expression
+%                    'put' output
+%                    statement statement
+%    declaration:    type identifier
+%                    declaration declaration
+%          scope:    '{' declaration statement '}'
+%         output:    text
+%                    'skip'
+%                    output ',' output
+%           type:    'boolean'
+%       variable:    variablename
+%     expression:    'true'
+%                    'false'
+%                    '!' expression
+%                    expression '&' expression
+%                    expression '|' expression
+%                    expression '=' expression
+%                    '(' expression ')'
+%                    '(' expression '?' expression ':' expression ')'
+%                    variable
+%    variablename:   identifier
+% ------------------
+{  
+    % variable declaration
+    boolean a 
+    boolean b
+    boolean c
+    boolean d
+    boolean e
+    boolean f
+    int C
+    int D
+    int E
+    int F
+
+    % variable initialisation
+    a = true
+    b = false
+
+    % check operation correctness including associativity
+    c = a & true & b  % c = false
+    d = a | b | false % d = true
+    e = !b            % e = true
+
+    % check precedence; 
+    f = (c | d & !e) % f = false
+
+    % assign a value of 1 to each int whose corresponding
+    % boolean is true, and a value of 0 to other ints
+    C = (c ? 1 : 0)
+    D = (d ? 1 : 0)
+    E = (e ? 1 : 0)
+    F = (f ? 1 : 0)
+
+    % output variable values for C, D, E and F
+    put "C = ", C, "; D = ", D, "; E = ", E, "; F = ", F, skip
+}

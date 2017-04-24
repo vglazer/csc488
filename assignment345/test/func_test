@@ -1,0 +1,37 @@
+% program to test semantic checking for procedures and functions
+%
+% this program contains
+%   * declaration of a function with paramters
+%   * declaration of a function with no parmaters
+%   * declaration of a procedure with paramters
+%   * declaration of a procedure with no parmaters
+%   * function calling another function
+%   * calls to each of the above routines  
+%
+{
+    int foo : {
+        put "hello" 
+        result 12 
+    }
+
+    boolean foobar(int i, int j) : {
+        result i < foo 
+    }
+
+    proc bar : {
+       put "happy" 
+       return
+    }
+
+    proc barfoo (boolean i) : {
+       put "happy" 
+       return 
+    }
+
+    if ( foobar(foo, foo) ) then 
+        put foo
+        bar
+        barfoo (foobar(1,2)) 
+    fi
+    put foo
+}

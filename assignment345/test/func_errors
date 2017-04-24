@@ -1,0 +1,27 @@
+{
+    int foo :
+    {
+        %return outside of procedure
+        return
+        
+        %no result in function
+    }
+
+    int bar( boolean b ) :
+    {
+        % mismatching result type
+        result b
+    }
+
+    % assigning value to function
+    foo = 4
+
+    % call 0 argument function with more than 0 params
+    put foo(3)
+
+    % call with wrong number of arguments 
+    put bar( true, false )
+
+    % call with mismatched parameter type
+    put bar(5) 
+}

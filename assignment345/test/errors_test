@@ -1,0 +1,38 @@
+% errors_test is an app written in the csc488 source language
+% designed to test that the semantic checker correctly detects
+% and reports errors.
+% no arrays, functions or procedures are used in this program 
+{
+    boolean b
+    int i 
+    % EalreadyDeclared:
+    int j
+    int j
+
+    % EinvalidExpnType
+    if i then
+       put "hello"
+    fi
+
+    % EtypeMismatch
+    i = true 
+
+    % EinvalidControl
+    i = (1 ? 1 : 0) 
+
+    % EinvalidExit
+    exit 
+
+    % EinvalidPutArgs
+    put b 
+
+    % EinvalidGetArgs
+    get b 
+
+    % EundeclaredVariable, Eunknown
+    z = 5
+
+    % EinvalidReturn
+    return
+}
+ 

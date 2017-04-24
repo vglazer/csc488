@@ -1,0 +1,54 @@
+% ------------------
+% Assignment 1, Program a3
+% Requirements:      A program that doesn't use arrays, functions or procedures
+% Description:       Program that tests control flow and comparison operators
+% Expected Output:   "i < j"
+%                    "k < l"
+% Key Rules Used: 
+%      statement:    'if' expression 'then' statement 'fi'
+%                    'if' expression 'then' statement 'else' statement 'fi'
+%     expression:    expression '#' expression 
+%                    expression '<''=' expression
+%                    expression '>' expression
+% ------------------
+{
+    % variable declaration
+    int i
+    int j
+    int k
+    int l
+
+    % variable initialisation
+    i = 1
+    j = 5
+    k = -1
+    l = 4
+
+    % single if, no else
+    if i = k then
+        put "i = k", skip
+    fi
+
+    % nested ifs with elses
+    if i <= j then
+        if i # j then
+            put "i < j", skip
+        else    
+            put "i = j", skip
+        fi
+    else
+        put "i > j", skip
+    fi
+
+    % more nested ifs with elses
+    if k > l then
+        put "k > l", skip
+    else 
+        if k = l then
+            put "k = l", skip
+        else
+            put "k < l", skip
+        fi
+    fi   
+}
+ 

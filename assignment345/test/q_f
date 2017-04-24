@@ -1,0 +1,37 @@
+% ------------------
+% Assignment 1, Program f
+% Requirements:      A program using recursive functions with parameters
+% Description:       This program defines a function for calculating factorial,
+%                    and then uses it and outputs the result.
+% Expected Output:   "trying 0! ... correct"
+%                    "trying 7! ... correct"
+% Key Rules Used:    No new rules used
+% ------------------
+{
+	% return the factorial of n
+	% expect n >= 0
+	int factorial (int n) :
+	{
+		if (n = 0) then
+			result 1
+		else 
+			result factorial(n - 1) * n	
+		fi
+	}
+
+	% print test outcome 
+	proc test_outcome(int outcome, int expected):
+	{
+		if ( outcome = expected ) then
+			put "correct", skip
+		else 
+			put "incorrect", skip
+		fi
+	}
+
+	% tests
+	put "trying 0! ... "
+    test_outcome(factorial(0), 1)
+	put "trying 7! ... "
+    test_outcome(factorial(7), 5040)
+}

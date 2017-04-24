@@ -1,0 +1,72 @@
+{
+    int i
+
+    proc foo : 
+    {
+        int i
+        i = 12
+    }
+
+    proc baz :
+    {
+        {
+            int i
+            i = 13
+            return
+        }
+    }
+    
+    int bar :
+    {
+        {
+            int i 
+            i = 14
+            result i
+        }
+    }
+
+    proc lem :
+    {
+        do
+        {
+            int i
+            i = 15
+            exit
+        }
+        until false 
+        return
+    }
+
+    i = 10
+
+    % procedure properly restores display
+    {
+        foo
+        put "i = ", i, " (expected 10)", skip
+    }
+
+    % return properly restores display
+    {
+        {
+            baz
+            put "i = ", i, " (expected 10)", skip
+        }
+    }
+
+    % function properly restore display
+    {
+        {
+            put "bar returns ", bar, skip
+            put "i = ", i, " (expected 10)", skip
+        }
+    }
+
+    % exit in nested minor scope properly restore display 
+    {
+        {
+            lem
+            put "i = ", i, " (expected 10)", skip
+        }
+    }
+
+}

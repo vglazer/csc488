@@ -1,0 +1,116 @@
+README.CVS
+
+This directory contains the supplied project software for the
+CSC488S Compiler Project 2002/2003.
+
+The GRAND PLAN
+
+For assignments 3, 4 and 5 you will be concerned with building the
+compiler's abstract syntax tree, semantic analysis, symbol table and 
+code generation modules.
+
+You should NOT modify the machine interpreter module unless you have a 
+REALLY GOOD reason AND have received ADVANCE approval from the instructor.
+
+For Assignment 2 you will receive a scanner, a main program and a 
+parser skeleton that you can use to debug and test your Assignment 2
+solution.
+
+For  Assignments 3, 4 and 5  you will receive skeleton source files for 
+the abstract syntax tree, semantics analysis, symbol table and code generation
+modules, as well as the parser, scanner, astDump routine and main program, 
+all in a CVS repository has been set up for you. 
+
+There are a number of advantages to using CVS
+- Using CVS will make your life (and ours) a lot easier.
+  Also, CVS approximates or duplicates what is in use in much of
+  the Real World, and thus its use is good experience.
+  
+  man cvs  is a good starting point for learning about CVS.
+  
+- What you have to change is isolated from what is not relevant
+  to the assignment at hand, making your job simpler.
+  If any corrections are necessary in the supplied modules you will 
+  be given the corrected versions.
+
+The CVS repositories are configured automatically to set the
+permissions and group ownership on themselves whenever files are
+checked in, thereby ensuring smooth collaboration between teammates.
+
+HOW TO CONFIGURE YOURSELF TO USE THE CVS REPOSITORIES
+
+0)  Let XY be your *2-digit* project team number, i.e.  01 .. 12
+
+1)  Set up important environment variables.  If you are using tcsh
+    (the default) or another csh variant (if you don't know which shell
+    you are using, type "echo $SHELL"), then add the following lines
+    to your .cshrc:
+
+	setenv CVSROOT ~csc488h/winter/pub/CVS/c488hXY
+	setenv CSC488TEAM c488hXY
+
+    Otherwise, you presumably know what you are doing, and can make
+    the analogous changes for your shell.  For bash you would
+    likely want to add
+
+	export CVSROOT=~csc488h/winter/pub/CVS/c488hXY
+	export CSC488TEAM=c488hXY
+
+    to a file such as .bash_profile.
+
+2)  Log out and back in, so that the environment variables are updated.
+
+3)  Choose a place for your working directory (i.e. a directory into
+    which the subdirectory for your work on the project will go)
+    such as ~/csc488s, and change into that directory.
+
+4)  There are 4 projects defined in each teams CVS repository
+
+	assignment1	a place to store files for assignment 1
+
+	compiler488-2	scanner+empty parser for Assignment 2
+
+	compiler488-345 complete skeletal compiler for 
+			Assignments 3, 4 and 5.  The parser.y
+			file in this directory is a dummy that
+			will be updated after Assignment 2 is
+			done.
+
+	compiler488-6	Empty directory for you to use for
+			Assignment 6.  At some point you will
+			want to populate this with pieces from
+			your Assignment 5 compiler.
+
+5)  Issue the command
+
+	cvs checkout assignment1
+    or	cvs checkout compiler488-A 
+
+        Where A is the assignment key, i.e.  A = 2 or A = 345 or A = 6
+
+5)  Change into the compiler488-A  directory
+
+6)  Give the command
+
+	make compiler
+
+    This should cause the compiler components in the directory
+    to be compiled into a compiler named compiler488
+     
+    Note that you can run this null compiler to  trace the actions of the 
+    scanner and parser.  See the compiler man page for details.
+
+7)  See the Makefile for a description make targets that may be
+    useful.  You will probably want to make a printable copy
+    of the compilers man page using one of 
+
+	make postman
+    or	make textman
+
+8)  Begin working.  Remember, CVS is your friend.  Update periodically
+    to merge changes your teammates may have made into your working
+    directory.  Commit when your changes for the day (or hour, feature,
+    etc.) are complete.  This way, you can always go back to an older
+    version of any file.
+    
+    

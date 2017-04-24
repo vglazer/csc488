@@ -1,0 +1,19 @@
+{
+    boolean i = false | true 
+    boolean j = !i
+    int k = 100
+    int l
+    if i then
+       put "i is true", skip
+    else
+       put "i is false", skip
+    fi
+
+    if j then
+       put "j is true", skip
+    else
+       put "j is false", skip
+    fi
+    l = k
+    put "k = ", k, ",l = ", l, skip
+}

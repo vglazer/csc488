@@ -1,0 +1,13 @@
+TESTING STRATEGY
+----------------
+
+<< CODE GENERATION >>
+
+The bulk of our testing for code generation was done using our 
+programs from assignment1.  These programs were designed to use
+almost all of the rules of the language.  We also wrote a new
+test case called display_test designed to ensure that the code
+generation properly handles entering and exiting scopes of all
+types.  Each of these tests can be run individually.  We also
+wrote a script, run_codegentests.sh, which runs a series of these
+tests and outputs the results.
