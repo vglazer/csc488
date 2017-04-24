@@ -1,6 +1,5 @@
-Compiler488
-CSC488H1 - Spring 2003
-======================
+#Compiler488
+#CSC488H1 - Spring 2003
 
 Files:
 
@@ -40,10 +39,12 @@ Files:
     dist/                    - files for managing distribution and submission
                                of the assignment
 
-Authors:
+##Authors:
 * Ryan "The Cheat" MacLean
 * Victor "Strong Bad" Glazer
 * Jacob "The Yellow Dart" Tseng
 * jon "Homestar" pipitone
 
-Group c488h05
+##Group c488h05
+
+`cd src` then run `make && make test`
