@@ -1,13 +1,13 @@
 #ifndef _GLOBAL_VARS_H_
 #define _GLOBAL_VARS_H_
 /********************************************************/
-/*  globalvars.h					*/
+/*  globalvars.h					                    */
 /*  CSC488S Project Compiler Shared Global Variables	*/
-/*  							*/
-/*  This file contains the definition of global		*/
+/*  							                        */
+/*  This file contains the definition of global		    */
 /*  variables that are used for communication among 	*/
-/*  the various compiler modules			*/
-/*							*/
+/*  the various compiler modules			            */
+/*							                            */
 /********************************************************/
 
 	/************************************************/
@@ -20,39 +20,39 @@
 
 
 /********************************************************/
-/*							*/
-/*	FILE global variables.				*/
-/*	Used to specify sinks for compiler output and	*/
-/*	sources for compiler input			*/
-/*							*/
+/*							                            */
+/*	FILE global variables.				                */
+/*	Used to specify sinks for compiler output and	    */
+/*	sources for compiler input			                */
+/*							                            */
 /********************************************************/
 
 /********************************************************/
-/*  File used as an input source for the compiler	*/
+/*  File used as an input source for the compiler	    */
 /********************************************************/
 
 EXTERN_GLOBALS FILE * inputFile ;
 
 /********************************************************/
-/*  File used as a sink for execution output		*/
+/*  File used as a sink for execution output		    */
 /********************************************************/
 
 EXTERN_GLOBALS FILE * outputFile ;
 
 /********************************************************/
-/*  File used as a sink for error messages		*/
+/*  File used as a sink for error messages		        */
 /********************************************************/
 
 EXTERN_GLOBALS FILE *  errorFile ;
 
 /********************************************************/
-/*  File used as a sink for table dumps			*/
+/*  File used as a sink for table dumps			        */
 /********************************************************/
 
 EXTERN_GLOBALS FILE *  dumpFile ;
 
 /********************************************************/
-/*  File used as a sink for trace output		*/
+/*  File used as a sink for trace output		        */
 /********************************************************/
 
 EXTERN_GLOBALS  FILE * traceFile ;
@@ -64,57 +64,57 @@ EXTERN_GLOBALS  FILE * traceFile ;
 EXTERN_GLOBALS  FILE * runInputFile ;
 
 /********************************************************/
-/*							*/
-/*	Scanner global variables.			*/
-/*	Contain information produced by the scanner 	*/
-/*	and used by other modules			*/
-/*							*/
+/*							                            */
+/*	Scanner global variables.			                */
+/*	Contain information produced by the scanner 	    */
+/*	and used by other modules			                */
+/*							                            */
 /********************************************************/
 
 /********************************************************/
-/*  Current line number in input.  Set by scanner	*/
+/*  Current line number in input.  Set by scanner	    */
 /********************************************************/
 
 EXTERN_GLOBALS int line ;
 
 
 /********************************************************/
-/*							*/
-/*	Code generator global variables			*/
-/*	These global variables are used by the 		*/
-/*	code generator module to communcate the		*/
-/*	initial value of the machine state to the	*/
-/*	pseudo machine interpreter.			*/
-/*	See codegen.c for discussion of usage		*/
-/*	conventions.					*/
-/*							*/
+/*							                            */
+/*	Code generator global variables			            */
+/*	These global variables are used by the 		        */
+/*	code generator module to communcate the		        */
+/*	initial value of the machine state to the	        */
+/*	pseudo machine interpreter.			                */
+/*	See codegen.c for discussion of usage		        */
+/*	conventions.					                    */
+/*							                            */
 /********************************************************/
 
 /********************************************************/
-/* initial value for program counter i.e. address	*/
-/*  of first instruction in the	compiled program	*/
+/* initial value for program counter i.e. address	    */
+/*  of first instruction in the	compiled program	    */
 /********************************************************/
 
 EXTERN_GLOBALS int startPC ;
 
 /********************************************************/
-/* initial value for memory stack pointer (msp)		*/
+/* initial value for memory stack pointer (msp)		    */
 /********************************************************/
 
 EXTERN_GLOBALS  int startMSP ;
 
 /********************************************************/
-/* initial value for memory limit pointer (mlp)		*/
+/* initial value for memory limit pointer (mlp)		    */
 /********************************************************/
 
 EXTERN_GLOBALS  int startMLP ;
 	
 
 /********************************************************/
-/*							*/
-/*  Flag used to indicate that an error occurred.  	*/
-/*  Used to suprress subsequent processing		*/
-/*							*/
+/*							                            */
+/*  Flag used to indicate that an error occurred.  	    */
+/*  Used to suprress subsequent processing		        */
+/*							                            */
 /********************************************************/
 
 EXTERN_GLOBALS BOOLEAN errorOccurred ;
@@ -123,81 +123,81 @@ EXTERN_GLOBALS BOOLEAN errorOccurred ;
 /********************************************************/
 /* Flag used to suppress execution of compiled program	*/
 /* Useful during code generation development to save	*/
-/* time and effort.					*/
+/* time and effort.					                    */
 /********************************************************/
 
 EXTERN_GLOBALS BOOLEAN  suppressExecution ;
 
 
 /********************************************************/
-/*							*/
-/*	Trace flags, set by main.c, used to cause	*/
-/*	optional tracing of compiler actions	   	*/
-/*							*/
+/*							                            */
+/*	Trace flags, set by main.c, used to cause	        */
+/*	optional tracing of compiler actions	   	        */
+/*							                            */
 /********************************************************/
 
 /********************************************************/
-/*  Cause trace of source program as it is read		*/
+/*  Cause trace of source program as it is read		    */
 /********************************************************/
 
 EXTERN_GLOBALS BOOLEAN traceSource ;
 	
 /********************************************************/
-/*  Cause trace of scanner token stream			*/
+/*  Cause trace of scanner token stream			        */
 /********************************************************/
 
 EXTERN_GLOBALS BOOLEAN traceTokens ;	
 
 /********************************************************/
-/*  Cause trace of parser				*/
+/*  Cause trace of parser				                */
 /********************************************************/
 
 extern  int  yydebug ;   /* use existing Bison variable */
 #define  traceParse yydebug
 
 /********************************************************/
-/*  Cause trace of semantic analysis			*/
+/*  Cause trace of semantic analysis			        */
 /********************************************************/
 
 EXTERN_GLOBALS  BOOLEAN  traceSemantics ;
 
 /********************************************************/
-/*  Cause trace of symbol table module			*/
+/*  Cause trace of symbol table module			        */
 /********************************************************/
 
 EXTERN_GLOBALS  BOOLEAN  traceSymbols ;
 
 /********************************************************/
-/*  Cause trace of abstract syntax tree module  	*/
+/*  Cause trace of abstract syntax tree module  	    */
 /********************************************************/
 
 EXTERN_GLOBALS  BOOLEAN  traceAST ;
 
 /********************************************************/
-/*  Cause trace of code generation			*/
+/*  Cause trace of code generation			            */
 /********************************************************/
 
 EXTERN_GLOBALS  BOOLEAN  traceCodeGen ;		
 
 /********************************************************/
-/* Cause dump of instructions in memory before 		*/
-/* execution						*/
+/* Cause dump of instructions in memory before 		    */
+/* execution						                    */
 /********************************************************/
 
 EXTERN_GLOBALS BOOLEAN  dumpInstructions ;
 
 /********************************************************/
-/* Cause execution to be traced				*/
+/* Cause execution to be traced				            */
 /********************************************************/
 
 EXTERN_GLOBALS BOOLEAN  traceExecution ;
 
 /********************************************************/
-/*							*/
-/*	Dump flags, set by main.c, used to cause	*/
-/*	optional dumping  of various compiler 		*/
-/*	data structures.				*/
-/*							*/
+/*							                            */
+/*	Dump flags, set by main.c, used to cause	        */
+/*	optional dumping  of various compiler 		        */
+/*	data structures.				                    */
+/*							                            */
 /********************************************************/
 
 /********************************************************/
@@ -207,23 +207,23 @@ EXTERN_GLOBALS BOOLEAN  traceExecution ;
 EXTERN_GLOBALS  BOOLEAN  dumpAST1 ;
 
 /********************************************************/
-/*  Cause dump of abstract syntax tree after Pass 2	*/
+/*  Cause dump of abstract syntax tree after Pass 2	    */
 /********************************************************/
 
 EXTERN_GLOBALS  BOOLEAN  dumpAST2 ;
 
 /********************************************************/
-/*  Cause dump of symbol table information		*/
+/*  Cause dump of symbol table information		        */
 /********************************************************/
 
 EXTERN_GLOBALS  BOOLEAN  dumpSymbols ;
 
 /********************************************************/
-/*							*/
-/*	Global variable pointing at 			*/
-/*	Abstract Syntyax tree				*/
-/*	Used to communicate between passes		*/
-/*							*/
+/*							                            */
+/*	Global variable pointing at 			            */
+/*	Abstract Syntyax tree				                */
+/*	Used to communicate between passes		            */
+/*							                            */
 /********************************************************/
 
 #include "ast.h"
