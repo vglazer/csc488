@@ -18,8 +18,6 @@
 #define  EXTERN_GLOBALS  extern
 #endif
 
-static const char globalvarsVersion[] = 
-  "$Id: globalvars.h,v 1.1 2003/02/27 14:09:56 g1u Exp $" ;
 
 /********************************************************/
 /*							*/
