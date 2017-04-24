@@ -1,7 +1,7 @@
 # Compiler488
 # CSC488H1 - Spring 2003
 
-Files:
+File Manifest:
 
     README                   - this file 
     README.CVS               - instructions on using CVS
@@ -47,4 +47,5 @@ Files:
 
 ## Group c488h05
 
+## Getting Started
 `cd src` then run `make && make test`
