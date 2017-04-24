@@ -30,12 +30,17 @@
 
 #define TS_TEXT do {if (traceSource) fprintf (traceFile, "%s", yytext);} while(0)
 #define TS_CHAR( ech ) do {if (traceSource) fprintf (traceFile, "%c", ech); } while(0)
-#define TT_TOKEN( tok ) do { if( traceTokens ) { \
-	if( isprint( tok ) ) \
-		fprintf(traceFile,"token %d ( %c )\n", tok, tok  ); \
-    } else \
-		fprintf(traceFile,"token %d\n", tok ); \
+#define TT_TOKEN( tok ) \
+    do { \
+        if( traceTokens ) { \
+	        if( isprint( tok ) ) { \
+		        fprintf(traceFile,"token %d ( %c )\n", tok, tok  ); \
+            } else { \
+		        fprintf(traceFile,"token %d\n", tok ); \
+            } \
+        } \
 	} while(0)
+
 
 
 /********************************************************/
