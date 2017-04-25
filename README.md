@@ -1,4 +1,3 @@
-# Compiler488
 # CSC488H1 - Spring 2003
 
 ## Authors (Group c488h05):
