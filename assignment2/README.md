@@ -1,6 +1,6 @@
-# CSC488                                                              *
-# ASSIGNMENT #2                                                       *
-# GROUP #5: Jacob Tseng, Ryan Maclean, Jon Pipitone and Victor Glazer *
+# CSC488                                                              
+# ASSIGNMENT #2                                                       
+# GROUP #5: Jacob Tseng, Ryan Maclean, Jon Pipitone and Victor Glazer
 
 ## GRAMMAR DESIGN
 Our general approach was to simply "bisonify" the reference grammar provided. A 
@@ -25,4 +25,4 @@ first error is reported). Note that parse errors are expected in some cases;
 the testing script identifies these accordingly.
 
 ## TESTING INSTRUCTIONS
-Simply run make (to build the parser), then execute the runTests script.
+Simply run `make` (to build the parser), then execute the `runTests` script.
