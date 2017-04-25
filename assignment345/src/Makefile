@@ -163,13 +163,19 @@ astTest: astDump.o ast.o symbol.o astTest.c
 clean:
 	rm -f compiler compiler488 $(OFILES) compiler488.ps compiler488.txt
 	rm -f parser.tab.[ch] parser.output scanner.c *~
-	rm -f .depend .*.swp
+	rm -f .depend .*.swp tags
 
 ###########################################################################
 # Run tests
 ###########################################################################
 test:
 	cd ../test && bash ./run_codegentests.sh && cd -
+
+###########################################################################
+# Run tests
+###########################################################################
+tags:
+	ctags -R
 
 ###########################################################################
 #	
