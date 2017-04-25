@@ -17,17 +17,17 @@ You will need a C compiler (`clang` or `gcc`) and GNU `make`. `flex` and `bison`
 
 ### On macOS:
 1. Install XCode from the App Store
-2. Run `xcode-select --install` from the terminal to install Command Line Tools
-3. Install [homebrew](https://brew.sh/)
-4. Run `brew install groff`
-5. Install universal ctags as described [here](https://github.com/universal-ctags/homebrew-universal-ctags)
+1. Run `xcode-select --install` from the terminal to install Command Line Tools
+1. Install [homebrew](https://brew.sh/)
+1. Run `brew install groff`
+1. Install universal ctags as described [here](https://github.com/universal-ctags/homebrew-universal-ctags)
 `flex` and `bison` should be available in `/usr/bin` already. 
 
 If you `brew install ctags` you will get [exuberant](http://ctags.sourceforge.net/) ctags rather than 
 [universal](https://github.com/universal-ctags) ctags, not that it matters in this context.
 
 ### On Ubuntu:
-1. Run `sudo apt-get install -y gcc make flex bison groff ctags xutils-dev`
+* Run `sudo apt-get install -y gcc make flex bison groff ctags xutils-dev`
 
 That last one is for `makedepend`, in case you were wondering. 
 

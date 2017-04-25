@@ -1,6 +1,6 @@
-# CSC488                                                              
-# ASSIGNMENT #2                                                       
-# GROUP #5: Jacob Tseng, Ryan Maclean, Jon Pipitone and Victor Glazer
+    CSC488                                                              
+    ASSIGNMENT #2                                                       
+    GROUP #5: Jacob Tseng, Ryan Maclean, Jon Pipitone and Victor Glazer
 
 ## GRAMMAR DESIGN
 Our general approach was to simply "bisonify" the reference grammar provided. A 
