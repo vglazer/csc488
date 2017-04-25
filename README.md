@@ -62,6 +62,7 @@ You will need a C compiler (`clang` or `gcc`) and GNU `make`. `flex` and `bison`
 4. Run `brew install groff`
 5. Install universal ctags as described [here](https://github.com/universal-ctags/homebrew-universal-ctags)
 `flex` and `bison` should be available in `/usr/bin` already. 
+
 If you `brew install ctags` you will get [exuberant](http://ctags.sourceforge.net/) ctags rather than 
 [universal](https://github.com/universal-ctags) ctags, not that it matters in this context.
 
