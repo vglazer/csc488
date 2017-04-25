@@ -1,35 +1,35 @@
 # A1 documentation 
-Assignment 1, Program a1
-Requirements:      A program that doesn't use arrays, functions or procedures
-Description:       Booleans and their operations.  Performs a series of
-                   operations on boolean variables, checks that operator
-                   precedence.  Also tests use of uppercase and lowercase
-                   identifiers for variables.
-Expected Output:   "C = 0; D = 1; E = 1; F = 0"
-Key Rules Used:
-       program:    scope
-     statement:    variable '=' expression
-                   'put' output
-                   statement statement
-   declaration:    type identifier
-                   declaration declaration
-         scope:    '{' declaration statement '}'
-        output:    text
-                   'skip'
-                   output ',' output
-          type:    'boolean'
-      variable:    variablename
-    expression:    'true'
-                   'false'
-                   '!' expression
-                   expression '&' expression
-                   expression '|' expression
-                   expression '=' expression
-                   '(' expression ')'
-                   '(' expression '?' expression ':' expression ')'
-                   variable
-   variablename:   identifier
-# Assignment 1, Program a2
+## Assignment 1, Program a1
+    Requirements:      A program that doesn't use arrays, functions or procedures
+    Description:       Booleans and their operations.  Performs a series of
+                       operations on boolean variables, checks that operator
+                       precedence.  Also tests use of uppercase and lowercase
+                       identifiers for variables.
+    Expected Output:   "C = 0; D = 1; E = 1; F = 0"
+    Key Rules Used:
+           program:    scope
+         statement:    variable '=' expression
+                       'put' output
+                       statement statement
+       declaration:    type identifier
+                       declaration declaration
+             scope:    '{' declaration statement '}'
+            output:    text
+                       'skip'
+                       output ',' output
+              type:    'boolean'
+          variable:    variablename
+        expression:    'true'
+                       'false'
+                       '!' expression
+                       expression '&' expression
+                       expression '|' expression
+                       expression '=' expression
+                       '(' expression ')'
+                       '(' expression '?' expression ':' expression ')'
+                       variable
+       variablename:   identifier
+## Assignment 1, Program a2
 Requirements:      A program that doesn't use arrays, functions or procedures
 Description:       Integers and their operations.  Tests a number of
                    integer operations, verifies that precedence rules
