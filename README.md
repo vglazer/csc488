@@ -55,14 +55,18 @@ dependencies are installed as described below.
 You will need a C compiler (`clang` or `gcc`) and GNU `make`. `flex` and `bison` are also required. 
 `groff` amd `ctags` are optional. `makedepend` is used on Linux but not macOS.
 
-On macOS:
+### On macOS:
 1. Install XCode from the App Store
 2. Run `xcode-select --install` from the terminal to install Command Line Tools
 3. Install [homebrew](https://brew.sh/)
-4. Run `brew install ctags groff`
+4. Run `brew install groff`
+5. Install universal ctags as described [here](https://github.com/universal-ctags/homebrew-universal-ctags)
+`flex` and `bison` should be available in `/usr/bin` already. 
+If you `brew install ctags` you will get [exuberant](http://ctags.sourceforge.net/) ctags rather than 
+[universal](https://github.com/universal-ctags) ctags, not that it matters in this context.
 
-On Ubuntu:
-Run `sudo apt-get install -y gcc make flex bison groff ctags xutils-dev`
+### On Ubuntu:
+1. Run `sudo apt-get install -y gcc make flex bison groff ctags xutils-dev`
 
 That last one is for `makedepend`, in case you were wondering. 
 
