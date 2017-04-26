@@ -161,7 +161,8 @@ astTest: astDump.o ast.o symbol.o astTest.c
 ###########################################################################
 
 clean:
-	rm -f compiler compiler488 $(OFILES) compiler488.ps compiler488.txt
+	rm -f compiler compiler488 $(OFILES) 
+	rm -f compiler488.txt compiler488.ps compiler488.pdf
 	rm -f parser.tab.[ch] parser.output scanner.c *~
 	rm -f .depend .*.swp tags
 
@@ -184,11 +185,15 @@ tags:
 ###########################################################################
 
 postman:  $(TARGET).ps		#  Postscript
+pdfman:  $(TARGET).pdf		#  PDF
 
 MANFILE = ../doc/compiler488.man
 
 $(TARGET).ps: $(MANFILE)
 	$(PSROFF) $(PSFLAGS) $(MANFILE) > $(TARGET).ps
+
+$(TARGET).pdf: $(TARGET).ps
+	pstopdf $(TARGET).ps
 
 textman:  $(TARGET).txt		#  ASCII text
 
