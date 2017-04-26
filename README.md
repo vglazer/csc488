@@ -34,6 +34,5 @@ If you `brew install ctags` you will get [exuberant](http://ctags.sourceforge.ne
 
 ## Getting Started
 `assignment1` doesn't have any runnable code. `assignment2` and `assignment345` are independent of each 
-other, with the latter effectively superceding the former. 
-
-cd into either `assignment2` or `assignment345/src`, then run `make && make test`
+other, with the latter effectively superceding the former. Have a look at their individual READMEs for 
+additional detail.
