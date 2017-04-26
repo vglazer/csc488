@@ -11,11 +11,11 @@ Since we already spent a considerable amount of time ensuring that our
 Assignment #1 programs tested every aspect of the project language, it made 
 sense to reuse as much of that code as possible. Those programs, albeit spliced
 together and in a slightly modified form, make up the bulk of our test cases.
-The rest were written from scratch: one verifies that "a = b = c" is a valid 
+The rest were written from scratch: one verifies that `a = b = c` is a valid 
 statement (as discussed on the course newsgroup), another verifies that, in a 
 given scope, all declarations must precede any statements and the rest are 
 intended to demonstrate that the operators declared to be non-associative do in
-fact fail to associate, e.g. that a = b = c is not a valid expression (the 
+fact fail to associate, e.g. that `a = b = c` is not a valid expression (the 
 latter regrettably couldn't be combined into a single file, since only the 
 first error is reported). Note that parse errors are expected in some cases; 
 the testing script identifies these accordingly.
