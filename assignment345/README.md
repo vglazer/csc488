@@ -181,7 +181,7 @@ outlined in the course notes.
 Text output is done in the obvious way: the ASCII values of the string
 characters are pushed onto the stack and then printed using the `PRINTC`
 instruction, one after the other. The `PRINTI` instruction is used for integer
-output, and a combination of LOAD and `READI` is used for integer input.
+output, and a combination of `LOAD` and `READI` is used for integer input.
 
 ### Routine calls
 If it is a function we `PUSH UNDEFINED` to allocate space for the return value.
