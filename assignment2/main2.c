@@ -198,8 +198,8 @@ int main( int argc , char *argv[] ){
                 optch );
             break ;
 
-        } ; /* end switch( ch ) */
-      };
+        }  /* end switch( ch ) */
+      }
      /* end of -ch argument processing */
 
     /************************************************************/
@@ -210,7 +210,7 @@ int main( int argc , char *argv[] ){
         /* user supplied source file name on input line */
         yyin = fileOpen( argv[optind] , "r", stdin );
         fprintf(stdout, "Compiling from source file %s\n", argv[optind] );
-     };
+    }
 
     /********************************************************/
     /*  Compilation Starts Here                             */
