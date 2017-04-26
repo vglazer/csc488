@@ -203,7 +203,7 @@ which gets popped by `BR`).
     ------------------
 
 Once the routine has control, it sets display at its lexic level to point to
-arg1 so that arguments are treated exactly like local variables. The
+`arg1` so that arguments are treated exactly like local variables. The
 unfortunate side effect of this is that for functions we must subtract the
 magic number 3 from `ADDR` [ function body's lexic level ] 0 to `STORE` the return
 value in the space we've allocated.
