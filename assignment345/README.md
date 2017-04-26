@@ -1001,7 +1001,7 @@ the corresponding "csc488 machine" assembly code (the output of the compiler).
 ## Program 1a
 A short program that doesn't use arrays, functions or procedures.
 
-### Project language:
+### Project language
 
     {
         int i
@@ -1017,7 +1017,7 @@ A short program that doesn't use arrays, functions or procedures.
         fi
     }
 
-### Project machine assembly:
+### Project machine assembly
 
            ; back up display for scope's lexic level
            ADDR 0 0
@@ -1093,7 +1093,7 @@ A short program that doesn't use arrays, functions or procedures.
 ## Program 1c
 A program using loops, including nested loops.
 
-### Project language:
+### Project language
 
     {
         int i 
@@ -1113,7 +1113,7 @@ A program using loops, including nested loops.
         put total, skip
     }
 
-### Project machine assembly:
+### Project machine assembly
 
                 ; back up display for scope's lexic level
                 ADDR 0 0
@@ -1193,7 +1193,7 @@ A program using loops, including nested loops.
 ## Program 1f 
 A program using recursive functions with parameters.
 
-### Project language:
+### Project language
 
     {
         int factorial(int n) :
@@ -1207,7 +1207,7 @@ A program using recursive functions with parameters.
         put factorial(5)
     }
 
-### Project machine assembly: 
+### Project machine assembly
 
     ; start of body of main scope
     :startpt    ADDR 0 0                 ; back up display 
