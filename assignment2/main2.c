@@ -173,7 +173,7 @@ int main( int argc , char *argv[] ){
                     switch( optch ) {
                     case 'i' :  traceSource = TRUE ;
                             break ;
-                case 'l' :  traceTokens = TRUE;     
+                    case 'l' :  traceTokens = TRUE;     
                             break ;
                     case 'p' :  traceParser = TRUE;
                             break ;
