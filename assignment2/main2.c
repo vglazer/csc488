@@ -180,8 +180,8 @@ int main( int argc , char *argv[] ){
                     default:    fprintf(errorFile, 
                            "Invalid trace option %c ignored\n", optch );
                            break ;
-                    } ;
-                };
+                    }
+                }
                 break ;
                 
         case 'E'  : /* Alternative error message file */
