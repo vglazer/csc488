@@ -141,7 +141,7 @@ the finalization portion of code generation.
 
 ### Scalar/Array Declarations
 When processing a variable declaration, we simply push the appropriate number
-of UNDEFINED (one for scalars, array_size for arrays) onto the stack to
+of `UNDEFINED` (one for scalars, `array_size` for arrays) onto the stack to
 allocate space. Doing this means that any attempt to access the variable
 before it has been initialized with a value will cause a machine exception.
 
@@ -153,7 +153,7 @@ which we backpatch once we've emitted code for the body.
 ## EXPRESSIONS
 
 ### Arithmetic operators
-We used the built-in ADD, SUB, MUL, DIV and NEG instructions to implement `+`,
+We used the built-in `ADD`, `SUB`, `MUL`, `DIV` and `NEG` instructions to implement `+`,
 `-` (binary), `*`, `/` and `-` (unary).
 
 ### Boolean Operators
