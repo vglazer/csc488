@@ -32,7 +32,12 @@ If you `brew install ctags` you will get [exuberant](http://ctags.sourceforge.ne
 
 `xutils-dev` is how you pick up `makedepend`, in case you were wondering. 
 
-## Getting Started
-`assignment1` doesn't have any runnable code. `assignment2` and `assignment345` are independent of each 
-other, with the latter effectively superceding the former. Have a look at their individual READMEs for 
-additional detail.
+## Overview
+* [assignment1](https://github.com/vglazer/csc488/tree/master/assignment1) is a collection of programs written in the "CSC488 language", the programming language we 
+are compiling. you can't run any of these without the compiler from assignment345, however. a formal 
+grammar for the language can be found in assignment2.
+* [assignment2](https://github.com/vglazer/csc488/tree/master/assignment2) contains a lexer (or scanner) and a parser for the "csc488 language". the code for these is generated using 
+[flex](https://github.com/westes/flex) and [bison](https://www.gnu.org/software/bison/), respectively. 
+there are also some tests which are based on the programs from assignment1.
+* [assignment345](https://github.com/vglazer/csc488/tree/master/assignment345) builds on assignment2, but is independent from it. it is a full-fledged compiler for 
+the "csc488 language", which emits instructions for a fictitious machine. there are also a variety of tests.
