@@ -13,7 +13,7 @@ installed as described below.
 
 ## Dependencies
 You will need a C compiler (`clang` or `gcc`) and GNU `make`. `flex` and `bison` are also required. 
-`groff` amd `ctags` are optional. `makedepend` is used on Linux but not macOS.
+`groff` amd `ctags` are optional. `makedepend` is used on Linux, but not macOS.
 
 ### On macOS:
 1. Install XCode from the App Store
