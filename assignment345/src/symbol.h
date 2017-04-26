@@ -1,17 +1,14 @@
 #ifndef _SYMBOL_H_
 /********************************************************/
-/*							*/
-/*	symbol.h					*/
-/*	Interface to the symbol table module		*/
-/*							*/
+/*                                                      */
+/*  symbol.h                                            */
+/*  Interface to the symbol table module                */
+/*                                                      */
 /********************************************************/
 #define _SYMBOL_H_
 
 /* Symbol table size */
 #define SymbTableSize 200
-
-static const char symbolInterfaceVersion[]
-     = "$Id: symbol.h,v 1.5 2003/04/08 20:04:33 g1u Exp $" ;
 
 /* Symbol table entryinfo struct.  Used to pass values *
  * to and from the symbol table */
@@ -30,21 +27,21 @@ typedef struct SymbTabEntryInfo_tag *SymbTabEntryInfoP;
  
 
 /********************************************************/
-/*	Symbol table initialization			*/
+/*  Symbol table initialization                         */
 /********************************************************/
 
 void symbolInitialize(void);
 
 /********************************************************/
-/*	Symbol table finalization			*/
+/*  Symbol table finalization                           */
 /********************************************************/
 
 void symbolFinalize(void);
 
 /********************************************************/
-/*	Additional functions and procedures in the	*/
-/*	interface to the symbol table module		*/
-/*	GO HERE						*/
+/*  Additional functions and procedures in the          */
+/*  interface to the symbol table module                */
+/*  GO HERE                                             */
 /********************************************************/
 
 /* Notify symbol table that we're entering a new scope */
