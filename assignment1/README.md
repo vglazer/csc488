@@ -1,13 +1,13 @@
 # A1 documentation 
 
 ## List
-(b) arrays                                     :  ryan_A1_ProgramB
-(c) loops, including nested loops              :  loops
-(d) non-recursive procedures without parameters:  procnoparam
-(e) non-recursive functions with parameters    :  jp_e, but remove test_result()
-(f) recursive functions with parameters        :  jp_f, remove test_result()
-(g) input and output                           :  jp_g, scoping redundant?
-(h) procedure in procedure                     :  procinproc
+1. arrays                                     :  ryan_A1_ProgramB
+1. loops, including nested loops              :  loops
+1. non-recursive procedures without parameters:  procnoparam
+1. non-recursive functions with parameters    :  jp_e, but remove test_result()
+1. recursive functions with parameters        :  jp_f, remove test_result()
+1. input and output                           :  jp_g, scoping redundant?
+1. procedure in procedure                     :  procinproc
  
 ## Assignment 1, Program a1
     Requirements:      A program that doesn't use arrays, functions or procedures
