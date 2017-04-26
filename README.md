@@ -30,7 +30,7 @@ If you `brew install ctags` you will get [exuberant](http://ctags.sourceforge.ne
 ### On Ubuntu:
 * Run `sudo apt-get install -y gcc make flex bison groff ctags xutils-dev`
 
-That last one is for `makedepend`, in case you were wondering. 
+`xutils-dev` is how you pick up `makedepend`, in case you were wondering. 
 
 ## Getting Started
 `assignment1` doesn't have any runnable code. `assignment2` and `assignment345` are independent of each 
