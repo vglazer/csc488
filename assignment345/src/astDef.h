@@ -9,8 +9,6 @@
 /*                                                      */
 /********************************************************/
 
-static const char * astDef_RCSId = "$RCSfile: astDef.h,v $ $Revision: 1.4 $ $Date: 2003/04/08 21:23:29 $" ;
-
 /********************************************************/
 /*                                                      */
 /*  Include interface to ast module                     */

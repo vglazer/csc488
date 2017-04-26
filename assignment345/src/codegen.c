@@ -759,11 +759,9 @@ void codegenStmtWhile( StmtP stmt, FlagsP flags, int incramt, ExpnP incrvar)
 void codegenStmtDo( StmtP stmt, FlagsP flags )
 {
     int addr1;   
-    ObjectP stmts;
     FlagsP backupFlags;
  
     addr1 = startMSP; /* :body */
-    stmts = stmt->sstmt1;
 
     /* backup flag members we're about to change */
     backupFlags = codegenCopyFlags( flags );

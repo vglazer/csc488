@@ -35,7 +35,7 @@ BISONFLAGS = --debug --file-prefix=parser --defines --verbose
 CC = gcc
 #	-g needed for debuging
 #	-Wall	for really thorough checking
-CFLAGS = -g -Wall -ansi -pedantic -std=c99 -Werror
+CFLAGS = -g -Wall -ansi -pedantic -std=gnu99 -Werror
 # on OS X the flex library is called l rather than fl. go figure.
 PLATFORM = $(shell uname -s)
 ifeq ($(PLATFORM),Darwin)

@@ -115,9 +115,9 @@ statement       :  variable  '='  expression
                 |  scope
                     { $$ = mkStmt_scope($1, line); }
                 |  FOR variable ':''=' expression TO expression byPart statements ROF
-                    { $$ = mkStmt_for( $2, $5, $7, $8, $9, line ) }
+                    { $$ = mkStmt_for( $2, $5, $7, $8, $9, line ); }
                 |  ASSERT expression
-                    { $$ = mkStmt_assert($2, line) }
+                    { $$ = mkStmt_assert($2, line); }
                 ;
 
 byPart		    :  BY INTCONST 
@@ -141,9 +141,9 @@ ifstatement     :  IF expression  THEN statements ELSE statements FI
                 ;
 
 declaration     :  typeAndIdent 
-                    { $$ = mkDecl_scalar($1, NULL)}   
+                    { $$ = mkDecl_scalar($1, NULL); }
                 |  typeAndIdent '=' expression
-                    { $$ = mkDecl_scalar($1, $3) } 
+                    { $$ = mkDecl_scalar($1, $3); }
                 |  typeAndIdent '[' INTCONST ']' 
                     { $$ = mkDecl_arr($1, $3); }
                 |  typeAndIdent routineBody 
