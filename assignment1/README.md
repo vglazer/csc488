@@ -1,4 +1,14 @@
 # A1 documentation 
+
+## List
+(b) arrays                                     :  ryan_A1_ProgramB
+(c) loops, including nested loops              :  loops
+(d) non-recursive procedures without parameters:  procnoparam
+(e) non-recursive functions with parameters    :  jp_e, but remove test_result()
+(f) recursive functions with parameters        :  jp_f, remove test_result()
+(g) input and output                           :  jp_g, scoping redundant?
+(h) procedure in procedure                     :  procinproc
+ 
 ## Assignment 1, Program a1
     Requirements:      A program that doesn't use arrays, functions or procedures
     Description:       Booleans and their operations.  Performs a series of
@@ -29,6 +39,7 @@
                        '(' expression '?' expression ':' expression ')'
                        variable
        variablename:   identifier
+
 ## Assignment 1, Program a2
     Requirements:      A program that doesn't use arrays, functions or procedures
     Description:       Integers and their operations.  Tests a number of
@@ -45,6 +56,7 @@
                        expression '-' expression
                        expression '*' expression
                        expression '/' expression
+
 # Assignment 1, Program a3
     Requirements:      A program that doesn't use arrays, functions or procedures
     Description:       Program that tests control flow and comparison operators
@@ -56,6 +68,7 @@
         expression:    expression '#' expression
                        expression '<''=' expression
                        expression '>' expression
+                       `
 # Assignment 1, Program b
     Requirements:      A program using arrays but not functions or procedures
     Description:       This program allocates an array of the maximum allowed
@@ -67,6 +80,7 @@
           variable:    arrayname '[' expression ']'
         expression:    expression '<' expression
          arrayname:    identifier
+
 # Assignment 1, Program c
     Requirements:      A program using loops including nested loops
     Description:       This program uses an outer and inner loop to add
@@ -78,6 +92,7 @@
                        'do' statement 'until' expression
                        'exit'
          expression:   expression '>''=' expression
+
 # Assignment 1, Program d
     Requirements:      A program using non-recursive procedures without
                        parameters
@@ -95,6 +110,7 @@
                        procedurename
        declaration:    'proc' identifier ':' scope
      procedurename:    identifier
+
 # Assignment 1, Program e
     Requirements:      A program using non-recursive functions with parameters
     Description:       This program defines a function for calculating modulo,
@@ -115,6 +131,7 @@
                     parametername
       functionname: identifier
      parametername: identifier
+
 # Assignment 1, Program f
     Requirements:      A program using recursive functions with parameters
     Description:       This program defines a function for calculating factorial,
@@ -122,6 +139,7 @@
     Expected Output:   "trying 0! ... correct"
                        "trying 7! ... correct"
     Key Rules Used:    No new rules used
+
 # Assignment 1, Program g
     Requirements:    A program using input and ouput
     Description:     This program calculates the number of digits in a number
@@ -132,12 +150,14 @@
     Key Rules Used:
          statement: 'get' input
              input: variable
+
 # Assignment 1, Program h
     Requirements:      A program that uses a procedure declared within
                        another procedure
     Description:       This program uses a nested procedure declaration
     Expected Output:   none
     Key Rules Used:    No new rules used
+
 # Additional notes:
     The following rules are NOT tested by these programs:
     statement : scope
@@ -145,3 +165,4 @@
     input : input ',' input
     expression : functionname
     All other rules are tested.
+
