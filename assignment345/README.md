@@ -1,4 +1,4 @@
-## File Manifest
+# File Manifest
     README.md                - this file 
     README.CVS               - instructions on using CVS
     TODO                     - what remains to be done
@@ -35,7 +35,7 @@
     test/display_test        - code generation test case (new)
     dist/                    - files for managing distribution and submission of the assignment
 
-## TODO
+# TODO
 ### 3d) add a 'forward' declaration
     - parser    [jp:DONE]
         - <type> <indent> ( <paramlist> ) : forward
