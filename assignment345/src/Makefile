@@ -61,7 +61,7 @@ BISONFLAGS = --debug --file-prefix=parser --defines --verbose
 CC = gcc
 #	-g needed for debuging
 #	-Wall	for really thorough checking
-CFLAGS = -g -Wall -ansi -pedantic -std=c99
+CFLAGS = -g -Wall -ansi -pedantic -std=c99 -Werror
 #	Flags and files for the link editor (if required)
 
 PLATFORM = $(shell uname -s)
