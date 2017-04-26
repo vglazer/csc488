@@ -35,56 +35,6 @@
     test/display_test        - code generation test case (new)
     dist/                    - files for managing distribution and submission of the assignment
 
-# TODO
-### 3d) add a 'forward' declaration
-    - parser    [jp:DONE]
-        - <type> <indent> ( <paramlist> ) : forward
-        - proc   <indent> ( <paramlist> ) : forward
-    - ast       [jp:DONE] 
-        - add a new type(s) of declarations
-        jp: rather than add a new type, i just make the scope of the
-        declaration NULL.  If this seems too messy then it'll be easy to add a
-        new types: Dforward_proc and Dforward_func or something
-    - symbol table         
-        - somehow indicate that the declaration is a forward
-        - possibly add a spot for the body address? or
-          somehow store this in flags.
-    - semantic checking
-        - on forward declaration make sure signature matches any
-          previous forward declaration exactly.  might we be
-          able to remove multiple foward declarations for
-          the same routine?
-        - on body definition make sure signature matches and
-          body hasn't already been defined.
-    - codegen
-        - backpatch function address when we get to the body
-          declaration
-
-### 2c) add run time subscript checking
-    - codegen
-        - on initialization emit a function that takes two
-          parameters (size of array and subscript) and causes a
-          runtime error (PUSH UNDECLARED or something) if the
-          subscript is out of bounds.
-        - when subscripting to call the above function
-
-### 1b) add an assert statement
-    - parser.y
-        - assert <expression> 
-    - ast
-        - add a new statement type 
-    - semantic checking
-        - check that the expression is a boolean
-    - codegen
-        - on an assert, emit some code that causes a runtime
-          error if the expression returns false.
-
-and one other that we didn't mention, but should be dead
-easy:
-### 1c) do constant array subscripting at compile time 
-    - codegen
-        - blah.
-
 # CODE GENERATION DESIGN DECISIONS
 
 ### Rebuilding the symbol table
@@ -201,4 +151,55 @@ worth it.
 We are not subsuming minor scopes. This means that we back up the display when
 we first enter a minor scope (and similarly for program scope). On exit, we
 pop locals and restore the display (just like in a function or a procedure).
+
+# TODO
+### 3d) add a 'forward' declaration
+    - parser    [jp:DONE]
+        - <type> <indent> ( <paramlist> ) : forward
+        - proc   <indent> ( <paramlist> ) : forward
+    - ast       [jp:DONE] 
+        - add a new type(s) of declarations
+        jp: rather than add a new type, i just make the scope of the
+        declaration NULL.  If this seems too messy then it'll be easy to add a
+        new types: Dforward_proc and Dforward_func or something
+    - symbol table         
+        - somehow indicate that the declaration is a forward
+        - possibly add a spot for the body address? or
+          somehow store this in flags.
+    - semantic checking
+        - on forward declaration make sure signature matches any
+          previous forward declaration exactly.  might we be
+          able to remove multiple foward declarations for
+          the same routine?
+        - on body definition make sure signature matches and
+          body hasn't already been defined.
+    - codegen
+        - backpatch function address when we get to the body
+          declaration
+
+### 2c) add run time subscript checking
+    - codegen
+        - on initialization emit a function that takes two
+          parameters (size of array and subscript) and causes a
+          runtime error (PUSH UNDECLARED or something) if the
+          subscript is out of bounds.
+        - when subscripting to call the above function
+
+### 1b) add an assert statement
+    - parser.y
+        - assert <expression> 
+    - ast
+        - add a new statement type 
+    - semantic checking
+        - check that the expression is a boolean
+    - codegen
+        - on an assert, emit some code that causes a runtime
+          error if the expression returns false.
+
+and one other that we didn't mention, but should be dead
+easy:
+### 1c) do constant array subscripting at compile time 
+    - codegen
+        - blah.
+
 
