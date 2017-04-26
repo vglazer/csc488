@@ -188,7 +188,7 @@ int main( int argc , char *argv[] ){
                 errorFile = fileOpen( optarg, "w", DEFAULT_ERROR_FILE );
                 break ;
                 
-    case 'R' :  /* Alternative sink for  traces */
+    case 'R' :  /* Alternative sink for traces */
             traceFile = fileOpen( optarg, "w", DEFAULT_TRACE_FILE );
             break ;
             
