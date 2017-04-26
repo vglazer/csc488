@@ -52,8 +52,9 @@ instructions for a fictitious machine. there are also a variety of tests.
 1. This should create a compiler for the "csc488 language" in `./compiler488`. see 
 `./compiler488.pdf` for detailed usage options.
 1. There are tests in `../test`. You can either `make test` or `cd ../test && ./run_codegentests.sh` to run 
-some of these. The rest of the tests can only be run manually, see the 
-[README](https://github.com/vglazer/csc488/blob/master/assignment345/README.md) for details.
+some of these. The rest of the tests can only be run manually (see the 
+[README](https://github.com/vglazer/csc488/blob/master/assignment345/README.md) for details).
 1. You can now use the compiler to run the "csc488 language" programs from 
 [assignment1](https://github.com/vglazer/csc488/tree/master/assignment1) and 
 [assignment2](https://github.com/vglazer/csc488/tree/master/assignment2).
+1. You may want to `make ctags` to help you navigate the codebase.
