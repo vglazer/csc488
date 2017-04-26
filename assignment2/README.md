@@ -1,8 +1,4 @@
-# CSC488                                                              
-## ASSIGNMENT #2                                                       
-## GROUP #5: Jacob Tseng, Ryan Maclean, Jon Pipitone and Victor Glazer
-
-### GRAMMAR DESIGN
+# GRAMMAR DESIGN
 Our general approach was to simply "bisonify" the reference grammar provided. A 
 few left-recursive productions (declaration_list, statement_list and 
 output_list) were added to resolve shift/reduce conflicts, and bison's %left, 
@@ -10,7 +6,7 @@ output_list) were added to resolve shift/reduce conflicts, and bison's %left,
 to specify the precedence and associativity of the various operators (thus
 avoiding reduce/reduce conflicts in the expression production).
 
-### TESTING STRATEGY
+# TESTING STRATEGY
 Since we already spent a considerable amount of time ensuring that our 
 Assignment #1 programs tested every aspect of the project language, it made 
 sense to reuse as much of that code as possible. Those programs, albeit spliced
@@ -24,5 +20,5 @@ latter regrettably couldn't be combined into a single file, since only the
 first error is reported). Note that parse errors are expected in some cases; 
 the testing script identifies these accordingly.
 
-### TESTING INSTRUCTIONS
+# TESTING INSTRUCTIONS
 Simply run `make` (to build the parser), then execute the `runTests` script.
