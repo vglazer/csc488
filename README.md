@@ -47,7 +47,7 @@ instructions for a fictitious machine. there are also a variety of tests.
 
 ## Getting Started
 1. `cd assignment345/src`
-1. `make (this part requires `flex` and `bison`)
+1. `make` (this part requires `flex` and `bison`)
 1. `make pdfman` (this is where `groff` comes in)
 1. This should create a compiler for the "csc488 language" in `./compiler488`. see 
 `./compiler488.pdf` for detailed usage options.
