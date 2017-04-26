@@ -131,7 +131,7 @@ void astDump( const ASTtype  dumpTree)
     assert( indp + INDENT_STEP >= &inBlanks[0] ) ;
     
     initNeeded = FALSE ;
-  };  
+  }  
      
   fprintf (dumpFile, "\n*** Abstract Syntax Tree ***\n");
   if (dumpTree == NULL)
@@ -418,7 +418,7 @@ static void printExpnTree(const ExpnP expn , int indn ) {
 
    default:
         assert( FALSE );
-   };
+   }
 }
 
 /*********************************/
