@@ -44,3 +44,15 @@ there are also some tests which are based on the programs from assignment1.
 * [assignment345](https://github.com/vglazer/csc488/tree/master/assignment345) builds on assignment2, 
 but is independent from it. it is a full-fledged compiler for the "csc488 language", which emits 
 instructions for a fictitious machine. there are also a variety of tests.
+
+## Getting Started
+1. `cd assignment345/src`
+1. `make && make pdfman`
+1. This should create a compiler for the "csc488 language" in `./compiler488`. see 
+`./compiler488.pdf` for detailed usage options.
+1. There are tests in `../test`. You can `make test` or `cd ../test && ./run_codegentests.sh` to run 
+some of these. Some of the tests can only be run manually, see the 
+[README](https://github.com/vglazer/csc488/blob/master/assignment345/README.md) for details.
+1. You can now use the compiler to run the "csc488 language" programs from 
+[assignment1](https://github.com/vglazer/csc488/tree/master/assignment1) and 
+[assignment2](https://github.com/vglazer/csc488/tree/master/assignment2).
