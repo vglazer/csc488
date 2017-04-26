@@ -286,4 +286,711 @@ easy:
     - codegen
         - blah.
 
+# TESTING STRATEGY
+
+## AST BUILDING AND SEMANTIC CHECKING
+
+We decided to go with three rather large test cases involving a fairly
+representative sampling of language features, including I/O, both while and
+do..until loops with exits, if statements with else clauses, arrays,
+functions, procedures and expressions involving both boolean and arithmetic
+operators. One test case demonstrates that ast building is working properly,
+another shows that semantic analysis and symbol table manipulation are done
+correctly and the last one shows that all semantic errors are caught (except
+for ones that involve arrays, functions or procedures) by deliberately
+invoking them (it also shows that line numbers are handled properly).
+Separating ast testing from semantic testing allows us to demonstrate that
+arrays, functions and procedures are properly parsed even though we have yet
+to implement the corresponding semantic checking.
+
+## CODE GENERATION
+
+The bulk of our testing for code generation was done using our 
+programs from assignment1.  These programs were designed to use
+almost all of the rules of the language.  We also wrote a new
+test case called `display_test` designed to ensure that the code
+generation properly handles entering and exiting scopes of all
+types.  Each of these tests can be run individually.  We also
+wrote a script, `run_codegentests.sh`, which runs a series of these
+tests and outputs the results.
+
+# SEMANTIC CHECKING TESTS
+
+## ast_test
+
+### description:
+
+    ast_test is an app written in the csc488 source language designed to test
+    the abstract syntax tree built by the compiler It uses a significant portion
+    of the language, including arrays, functions and procedures.  
+
+    The semantic checker currently implemented does not support arrays,
+    functions or procedures.  As a result it does not work with ast_test. 
+
+    This test is run with the ast dumping flags turned on.
+
+### instructions:
+
+    To run this test, attempt to compile the test from the root of the project
+    directory, like so:
+
+        $ src/compiler488 -Da test/errors_test
+
+    Compiling from source file test/ast_test
+    Compilation begins
+
+    *** Abstract Syntax Tree ***
+            The tree is empty.
+
+    *** End Abstract Syntax Tree ***
+
+    *** Abstract Syntax Tree ***
+    { (0x805fb48) 
+         Scope (0x805fb38)
+            Parent pointer = (nil) 
+            { (0x805ed98) 
+                 Declaration - array (0x805ed60) 
+                 Line: 5
+                 int array [ 100 ]              Containing Scope pointer (0x805fb38)
+                 End Declaration
+            }
+            { (0x805f308) 
+                 Declaration - function (0x805eda8) 
+                 Line: 6
+                 int func (i : int, j : int)
+                 Associated Object
+                    { (0x805f330) 
+                         Scope (0x805f2f8)
+                            Parent pointer = 0x805fb38 
+                            { (0x805f2e8) 
+                                 if+else Statement (0x805f2c0)
+                                 Line: 22
+                                     Expression (0x805ef68)  ! (((i < j) = (j < 100)))
+                                    { (0x805f068) 
+                                         scope Statement (0x805f040)
+                                         Line: 12
+                                          Related scope:                                          Scope (0x805f030)
+                                                Parent pointer = (nil) 
+                                                { (0x805efb8) 
+                                                     Declaration - scalar (0x805ef80) 
+                                                     Line: 10
+                                                     int i                                                  Containing Scope
+     pointer (0x805f030)
+                                                     End Declaration
+                                                }
+                                                { (0x805efe0) 
+                                                     assignment Statement (0x805f008)
+                                                     Line: 12
+                                                     Expression (0x805efc8) i
+                                                     Expression (0x805eff0) 1
+                                                }
+                                             End Scope
+                                    }
+                                    { (0x805f210) 
+                                         do-until Statement (0x805f238)
+                                         Line: 20
+                                             Expression (0x805f220) 0
+                                            { (0x805f160) 
+                                                 while Statement (0x805f138)
+                                                 Line: 18
+                                                     Expression (0x805f088) 1
+                                                    { (0x805f0a0) 
+                                                     put Statement (0x805f0d8)
+                                                     Line: 17
+                                                      Related arguments: "hello"
+                                                    }
+                                                    { (0x805f128) 
+                                                     exit Statement (0x805f100)
+                                                     Line: 17
+                                                    }
+                                            }
+                                            { (0x805f200) 
+                                                 put Statement (0x805f1d8)
+                                                 Line: 20
+                                                  Related arguments: "still doing..", skip
+                                            }
+                                    }
+                                    { (0x805f2b0) 
+                                         result Statement (0x805f288)
+                                         Line: 22
+                                             Expression (0x805f270) i
+                                    }
+                            }
+                         End Scope
+                    }
+                 Containing Scope pointer (0x805fb38)
+                 End Declaration
+            }
+            { (0x805f618) 
+                 Declaration - procedure (0x805f5e0) 
+                 Line: 29
+                 void printNotted (value : boolean)
+                 Associated Object
+                    { (0x805f608) 
+                         Scope (0x805f5d0)
+                            Parent pointer = 0x805fb38 
+                            { (0x805f3d8) 
+                                 Declaration - scalar (0x805f390) 
+                                 Line: 26
+                                 int number                              Containing Scope pointer (0x805f5d0)
+                                 End Declaration
+                            }
+                            { (0x805f440) 
+                                 assignment Statement (0x805f4c8)
+                                 Line: 28
+                                     Expression (0x805f3e8) number
+                                     Expression (0x805f4b0) (( ! (value) & 1) ? 1 : 0) 
+                            }
+                            { (0x805f5c0) 
+                                 put Statement (0x805f598)
+                                 Line: 29
+                                  Related arguments: "input boolean notted:", number, skip
+                            }
+                         End Scope
+                    }
+                 Containing Scope pointer (0x805fb38)
+                 End Declaration
+            }
+            { (0x805f828) 
+                 Declaration - procedure (0x805f7f0) 
+                 Line: 33
+                 void printSqaredPlusFive (value : int)
+                 Associated Object
+                    { (0x805f818) 
+                         Scope (0x805f7e0)
+                            Parent pointer = 0x805fb38 
+                            { (0x805f7d0) 
+                                 put Statement (0x805f7a8)
+                                 Line: 33
+                                  Related arguments: "input number squared:", ((value * value) + 5), skip
+                            }
+                         End Scope
+                    }
+                 Containing Scope pointer (0x805fb38)
+                 End Declaration
+            }
+            { (0x805f848) 
+                 assignment Statement (0x805f8b8)
+                 Line: 36
+                     Expression (0x805f870) array [ 12 ] 
+                     Expression (0x805f8a0) 1000
+            }
+            { (0x805fa48) 
+                 put Statement (0x805fa20)
+                 Line: 37
+                  Related arguments: "hello world", func(array [ 12 ] , 4), skip
+            }
+            { (0x805faa8) 
+                 proc call Statement (0x805fa80) : printNotted
+                 Line: 37
+                  Related arguments: 1
+            }
+            { (0x805fb28) 
+                 proc call Statement (0x805fb00) : printSquaredPlusFive
+                 Line: 38
+                  Related arguments: 5
+            }
+         End Scope
+    }
+
+    *** End Abstract Syntax Tree ***
+    Segmentation fault
+
+
+## errors_test
+
+### description:
+
+    errors_test is an app written in the csc488 source language designed to test
+    that the semantic checker correctly detects and reports errors.  No arrays,
+    functions or procedures are used in the program.  
+
+    No special flags are used in the execution of this test.
+
+### instructions:
+
+    To run this test, attempt to compile the test from the root of the project
+    directory, like so:
+
+        $ src/compiler488 test/errors_test
+        
+### expected output:
+
+    Compiling from source file test/errors_test
+    Compilation begins
+
+    *** Abstract Syntax Tree ***
+            The tree is empty.
+
+    *** End Abstract Syntax Tree ***
+    ERROR: line 9: j already declared at this lexical level 
+    ERROR: line 12: expected boolean expression type
+    ERROR: line 20: type mismatch in assigning boolean to integer
+    ERROR: line 20: expected boolean control in conditional expresion
+    ERROR: line 23: exit occured outside a loop
+    ERROR: line 29: put arguments can only be text, integer, or 'skip'
+    ERROR: line 32: get arguments can only be integers
+    ERROR: line 32: undeclared variable: z
+    ERROR: line 32: unknown 
+
+    Compilation Ends
+    Execution suppressed due to compilation errors
+
+## semantic_test
+
+### description:
+
+  semantic_test is an app written in the csc488 source language designed to
+  test the compiler's symbol table and semantic checking.  When symbol table
+  tracing or dumping is turned on , the semantic checker will print the symbol
+  table immediately before exiting any scope.  The program does not contain
+  any semantic errors, so the semantic checker will accept it.  no arrays,
+  functions or procedures are tested in the program.
+
+  This test is run with symbol table dumping turned on.
+
+### instructions: 
+
+    To run this test, attempt to compile the test from the root of the project
+    directory, like so:
+
+        $ src/compiler488 -Dy test/semantic_test 
+
+### expected output:
+
+    Compiling from source file test/semantic_test
+    Compilation begins
+
+    *** Abstract Syntax Tree ***
+            The tree is empty.
+
+    *** End Abstract Syntax Tree ***
+    *** Dumping Symbol Table ***
+    lexicLevel:1
+    orderNumber:1
+    SymbTableSize:200
+    top:2
+
+             Entry#          sname          skind          stype      snumelems         slevel       sonumber
+                  0              a            VAR     SCALAR_INT              0              0              0
+                  1              a            VAR     SCALAR_INT              0              1              0
+    *** Done Symbol Table ***
+    *** Dumping Symbol Table ***
+    lexicLevel:1
+    orderNumber:0
+    SymbTableSize:200
+    top:1
+
+             Entry#          sname          skind          stype      snumelems         slevel       sonumber
+                  0              a            VAR     SCALAR_INT              0              0              0
+    *** Done Symbol Table ***
+    *** Dumping Symbol Table ***
+    lexicLevel:3
+    orderNumber:0
+    SymbTableSize:200
+    top:5
+
+             Entry#          sname          skind          stype      snumelems         slevel       sonumber
+                  0              a            VAR     SCALAR_INT              0              0              0
+                  1              b            VAR    SCALAR_BOOL              0              1              0
+                  2              c            VAR     SCALAR_INT              0              1              1
+                  3              b            VAR     SCALAR_INT              0              2              0
+                  4              d            VAR     SCALAR_INT              0              2              1
+    *** Done Symbol Table ***
+    *** Dumping Symbol Table ***
+    lexicLevel:2
+    orderNumber:2
+    SymbTableSize:200
+    top:5
+
+             Entry#          sname          skind          stype      snumelems         slevel       sonumber
+                  0              a            VAR     SCALAR_INT              0              0              0
+                  1              b            VAR    SCALAR_BOOL              0              1              0
+                  2              c            VAR     SCALAR_INT              0              1              1
+                  3              b            VAR     SCALAR_INT              0              2              0
+                  4              d            VAR     SCALAR_INT              0              2              1
+    *** Done Symbol Table ***
+    *** Dumping Symbol Table ***
+    lexicLevel:1
+    orderNumber:2
+    SymbTableSize:200
+    top:3
+
+             Entry#          sname          skind          stype      snumelems         slevel       sonumber
+                  0              a            VAR     SCALAR_INT              0              0              0
+                  1              b            VAR    SCALAR_BOOL              0              1              0
+                  2              c            VAR     SCALAR_INT              0              1              1
+    *** Done Symbol Table ***
+    *** Dumping Symbol Table ***
+    lexicLevel:0
+    orderNumber:1
+    SymbTableSize:200
+    top:1
+
+             Entry#          sname          skind          stype      snumelems         slevel       sonumber
+                  0              a            VAR     SCALAR_INT              0              0              0
+    *** Done Symbol Table ***
+
+    Compilation Ends
+    Start Exectution         pc =     0, msp =     1, mlp =  8191
+            memory[ 0 .. 1 ] =        0  -32768
+    End Execution    pc =     0, msp =     1, mlp =  8191
+            memory[ 0 .. 1 ] =        0  -32768
+
+
+## func_test
+
+### description:
+
+    func_test is a program to test semantic checking for procedures and
+    functions.  this program contains:
+        * declaration of a function with paramters
+        * declaration of a function with no parmaters
+        * declaration of a procedure with paramters
+        * declaration of a procedure with no parmaters
+        * function calling another function
+        * calls to each of the above routines  
+
+    This test is run with the symbol and AST table dumping flags turned on.
+
+### instructions:
+
+    To run this test, attempt to compile the test from the root of the project
+    directory, like so:
+
+        $ src/compiler488 -Day test/func_test
+
+### expected output:
+    Compiling from source file test/func_test
+    Compilation begins
+
+    *** Abstract Syntax Tree ***
+            The tree is empty.
+
+    *** End Abstract Syntax Tree ***
+
+    *** Abstract Syntax Tree ***
+    { (0x805ef28) 
+         Scope (0x805ef18)
+            Parent pointer = (nil) 
+            { (0x805e8e8) 
+                 Declaration - function (0x805e7e0) 
+                 Line: 12
+                 int foo (             Associated Object
+                    { (0x805e910) 
+                         Scope (0x805e8d8)
+                            Parent pointer = 0x805ef18 
+                            { (0x805e828) 
+                                 put Statement (0x805e860)
+                                 Line: 14
+                                  Related arguments: "hello"
+                            }
+                            { (0x805e888) 
+                                 result Statement (0x805e8b0)
+                                 Line: 15
+                                     Expression (0x805e898) 12
+                            }
+                         End Scope
+                    }
+                 Containing Scope pointer (0x805ef18)
+                 End Declaration
+            }
+            { (0x805ea48) 
+                 Declaration - function (0x805e920) 
+                 Line: 17
+                 boolean foobar (i : int, j : int)
+                 Associated Object
+                    { (0x805ea70) 
+                         Scope (0x805ea38)
+                            Parent pointer = 0x805ef18 
+                            { (0x805ea28) 
+                                 result Statement (0x805ea00)
+                                 Line: 19
+                                     Expression (0x805e9e8) (i < foo)
+                            }
+                         End Scope
+                    }
+                 Containing Scope pointer (0x805ef18)
+                 End Declaration
+            }
+            { (0x805eb70) 
+                 Declaration - procedure (0x805eb38) 
+                 Line: 24
+                 void bar (             Associated Object
+                    { (0x805eb60) 
+                         Scope (0x805eb28)
+                            Parent pointer = 0x805ef18 
+                            { (0x805ea90) 
+                                 put Statement (0x805eac8)
+                                 Line: 23
+                                  Related arguments: "happy"
+                            }
+                            { (0x805eb18) 
+                                 return Statement (0x805eaf0)
+                                 Line: 23
+                            }
+                         End Scope
+                    }
+                 Containing Scope pointer (0x805ef18)
+                 End Declaration
+            }
+            { (0x805ecb0) 
+                 Declaration - procedure (0x805ec78) 
+                 Line: 29
+                 void barfoo (i : boolean)
+                 Associated Object
+                    { (0x805eca0) 
+                         Scope (0x805ec68)
+                            Parent pointer = 0x805ef18 
+                            { (0x805eba0) 
+                                 put Statement (0x805ec08)
+                                 Line: 28
+                                  Related arguments: "happy"
+                            }
+                            { (0x805ec58) 
+                                 return Statement (0x805ec30)
+                                 Line: 28
+                            }
+                         End Scope
+                    }
+                 Containing Scope pointer (0x805ef18)
+                 End Declaration
+            }
+            { (0x805ef08) 
+                 if Statement (0x805eee0)
+                 Line: 35
+                     Expression (0x805ed40) foobar(foo, foo)
+                    { (0x805edc8) 
+                         put Statement (0x805eda0)
+                         Line: 33
+                          Related arguments: foo
+                    }
+                    { (0x805ee10) 
+                         proc call Statement (0x805ede8) : bar
+                         Line: 34
+                    }
+                    { (0x805eed0) 
+                         proc call Statement (0x805eea8) : barfoo
+                         Line: 34
+                          Related arguments: foobar(1, 2)
+                    }
+            }
+         End Scope
+    }
+
+    *** End Abstract Syntax Tree ***
+    *** Dumping Symbol Table ***
+    lexicLevel:1
+    orderNumber:0
+    SymbTableSize:200
+    top:1
+
+             Entry#          sname          skind          stype      snumelems         slevel       sonumber
+                  0            foo       function            int              0              0              0
+    *** Done Symbol Table ***
+    *** Dumping Symbol Table ***
+    lexicLevel:1
+    orderNumber:2
+    SymbTableSize:200
+    top:4
+
+             Entry#          sname          skind          stype      snumelems         slevel       sonumber
+                  0            foo       function            int              0              0              0
+                  1         foobar       function        boolean              2              0              1
+                  2              i         scalar            int              0              1              0
+                  3              j         scalar            int              0              1              1
+    *** Done Symbol Table ***
+    *** Dumping Symbol Table ***
+    lexicLevel:1
+    orderNumber:0
+    SymbTableSize:200
+    top:3
+
+             Entry#          sname          skind          stype      snumelems         slevel       sonumber
+                  0            foo       function            int              0              0              0
+                  1         foobar       function        boolean              2              0              1
+                  2            bar           proc           void              0              0              2
+    *** Done Symbol Table ***
+    *** Dumping Symbol Table ***
+    lexicLevel:1
+    orderNumber:1
+    SymbTableSize:200
+    top:5
+
+             Entry#          sname          skind          stype      snumelems         slevel       sonumber
+                  0            foo       function            int              0              0              0
+                  1         foobar       function        boolean              2              0              1
+                  2            bar           proc           void              0              0              2
+                  3         barfoo           proc           void              1              0              3
+                  4              i         scalar        boolean              0              1              0
+    *** Done Symbol Table ***
+    *** Dumping Symbol Table ***
+    lexicLevel:0
+    orderNumber:4
+    SymbTableSize:200
+    top:4
+
+             Entry#          sname          skind          stype      snumelems         slevel       sonumber
+                  0            foo       function            int              0              0              0
+                  1         foobar       function        boolean              2              0              1
+                  2            bar           proc           void              0              0              2
+                  3         barfoo           proc           void              1              0              3
+    *** Done Symbol Table ***
+
+    Compilation Ends
+    Start Exectution         pc =     0, msp =     1, mlp =  8191
+            memory[ 0 .. 1 ] =        0  -32768
+    End Execution    pc =     0, msp =     1, mlp =  8191
+            memory[ 0 .. 1 ] =        0  -32768
+
+## array_errors
+
+### description:
+
+    array_errors is an app written in the csc488 source language designed to test
+    that the semantic checker correctly detects and reports errors for arrays.
+
+    No special flags are used in the execution of this test.
+
+### instructions:
+
+    To run this test, attempt to compile the test from the root of the project
+    directory, like so:
+
+        $ src/compiler488 test/array_errors
+
+### expected output:
+
+    Compiling from source file test/array_test
+    Compilation begins
+
+    *** Abstract Syntax Tree ***
+            The tree is empty.
+
+    *** End Abstract Syntax Tree ***
+    ERROR: line 15: undeclared variable: p
+    ERROR: line 15: illegal subscripting of non-array variable
+    ERROR: line 18: type mismatch in assigning integer to boolean
+    ERROR: line 21: type mismatch in array subscript expression.  Must be an integer
+    ERROR: line 21: type mismatch in assigning integer to boolean
+    ERROR: line 24: type mismatch in assigning boolean to integer
+    ERROR: line 27: put arguments can only be text, integer, or 'skip'
+    ERROR: line 30: illegal subscripting of non-array variable
+    ERROR: line 33: use of array variable as a scalar
+    Compiling from source file test/array_test
+    Compilation begins
+
+    *** Abstract Syntax Tree ***
+            The tree is empty.
+
+    *** End Abstract Syntax Tree ***
+
+    Compilation Ends
+    Execution suppressed due to compilation errors
+
+## func_errors
+
+### description:
+
+  func_errors is an app written in the csc488 source language designed to test
+  that the semantic checker correctly detects and reports errors for routines.
+
+  No special flags are used in the execution of this test.
+
+### instructions:
+
+    To run this test, attempt to compile the test from the root of the project
+    directory, like so:
+
+        $ src/compiler488 test/func_errors
+
+### expected output:
+
+    Compiling from source file test/func_errors
+    Compilation begins
+
+    *** Abstract Syntax Tree ***
+            The tree is empty.
+
+    *** End Abstract Syntax Tree ***
+    ERROR: line 5: return occured outside a procedure
+    ERROR: line 2: function missing result statment 
+    ERROR: line 14: type mismatch in result expression
+    ERROR: line 17: illegal assignment to function
+    ERROR: line 20: too few/many arguments in function call
+    ERROR: line 23: too few/many arguments in function call
+    ERROR: line 26: type mismatch in function argument
+
+    Compilation Ends
+    Execution suppressed due to compilation errors
+
+# CODE GENERATION TESTS
+
+## display_test
+
+### description:
+
+  display_test is an program written in the csc488 source language designed to
+  test that the code generator correctly emits code to restore the display on
+  closing a minor scope, returning from a function, returning from a
+  procedure, and exiting a loop.
+
+  No special flags are used in the execution of this test.
+
+### instructions:
+
+    To run this test, attempt to compile the test from the root of the project
+    directory, like so:
+
+        $ src/compiler488 test/display_test
+
+### expected output:
+    Compiling from source file test/display_test
+    Compilation begins
+
+    *** Abstract Syntax Tree ***
+            The tree is empty.
+
+    *** End Abstract Syntax Tree ***
+
+    Compilation Ends
+    Start Exectution         pc =     0, msp =   737, mlp =  8191
+            memory[ 729 .. 737 ] =        1       0       0      15       8       6       0       0  -32768
+    i = 10 (expected 10)
+    i = 10 (expected 10)
+    bar returns 14
+    i = 10 (expected 10)
+    i = 10 (expected 10)
+    End Execution    pc =   736, msp =   737, mlp =  8191    display[ 0 .. 19 ] =      737     737     737     737     737     737     737     737     737     737     737     737     737     737     737     737     737     737     737     737
+            memory[ 729 .. 737 ] =        1       0       0      15       8       6       0       0     737
+
+## q_a1 - q_h
+
+### description:
+
+   q_a1, q_a2, q_a3, q_b, q_c, q_d, q_e, q_f q_g and q_h are essentially the programs 
+   originally written for a1.  Some of these have been modified slightly to make them
+   more useful in the testing of code generation.  Together, they test almost every 
+   rule in the language.  See the comments at the beginning of each program for a 
+   detailed description.
+
+### instructions:
+
+   To run one of these tests, attempt to compile it from the root of the project
+   directory.  To run q_a1, for example, type:
+   
+       $ src/compiler488 test/q_a1
+
+   We have also prepared a test script which runs display_test as well as q_a1, 
+   q_a2, q_a3, q_b, q_c, q_d, q_e, q_f, and q_h.  q_g is omitted because it requires
+   user input (q_g does work - it can be tested individually).  To execute this script,
+   type
+       
+       $ run_codegentests.sh 
+
+   from the test directory of the project.
+
+### expected output:
+   
+   See the top of each program's file for its expected output.
 
