@@ -3,3 +3,9 @@
 *.o
 tags
 Makefile.bak
+compiler488
+parser.output
+parser.tab.h
+parser.tab.c
+scanner.c
+.depend
