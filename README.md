@@ -11,6 +11,9 @@ Everything should work out of the box on [macOS Sierra](https://www.apple.com/ma
 and [Ubuntu 16.04](https://www.ubuntu.com/download/desktop), provided the necessary dependencies are 
 installed as described below.
 
+Other flavors of Linux should also work, but haven't been tested. The same goes for 
+[Cygwin](https://www.cygwin.com/) and [MinGW](http://www.mingw.org/).
+
 ## Dependencies
 You will need a C compiler (`clang` or `gcc`) and GNU `make`. `flex` and `bison` are also required. 
 `groff` amd `ctags` are optional. `makedepend` is used on Linux, but not macOS.
