@@ -191,7 +191,7 @@ routine call) onto the stack, followed by the n arguments. Finally, we push
 the address of the routine body inorder to branch to it. This means that just
 before control is transferred to a routine (with n parameters), the stack
 looks something like this (not counting the address of the routine code,
-which gets popped by BR).
+which gets popped by `BR`).
 
     |      argn      |
     |      ...       |
