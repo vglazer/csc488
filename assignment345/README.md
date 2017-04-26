@@ -999,7 +999,7 @@ Below are a few programs in the "csc488 project language" (the input to the comp
 the corresponding "csc488 machine" assembly code (the output of the compiler).
 
 ## Program 1a
-A short program that doesn't use arrays, functions or procedures:
+A short program that doesn't use arrays, functions or procedures.
 
 ### Project language:
 
@@ -1091,7 +1091,7 @@ A short program that doesn't use arrays, functions or procedures:
            POPN
 
 ## Program 1c
-A program using loops, including nested loops
+A program using loops, including nested loops.
 
 ### Project language:
 
@@ -1190,7 +1190,8 @@ A program using loops, including nested loops
                 SUB
                 POPN
 
-## A program using recursive functions with parameters
+## Program 1f 
+A program using recursive functions with parameters.
 
 ### Project language:
 
