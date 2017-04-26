@@ -1,14 +1,5 @@
 # A1 documentation 
 
-## List
-1. arrays                                     :  ryan_A1_ProgramB
-1. loops, including nested loops              :  loops
-1. non-recursive procedures without parameters:  procnoparam
-1. non-recursive functions with parameters    :  jp_e, but remove test_result()
-1. recursive functions with parameters        :  jp_f, remove test_result()
-1. input and output                           :  jp_g, scoping redundant?
-1. procedure in procedure                     :  procinproc
- 
 ## Assignment 1, Program a1
     Requirements:      A program that doesn't use arrays, functions or procedures
     Description:       Booleans and their operations.  Performs a series of
@@ -165,4 +156,13 @@
     input : input ',' input
     expression : functionname
     All other rules are tested.
+
+## Notes
+1. arrays                                     :  ryan_A1_ProgramB
+1. loops, including nested loops              :  loops
+1. non-recursive procedures without parameters:  procnoparam
+1. non-recursive functions with parameters    :  jp_e, but remove `test_result()`
+1. recursive functions with parameters        :  jp_f, remove `test_result()`
+1. input and output                           :  jp_g, scoping redundant?
+1. procedure in procedure                     :  procinproc
 
