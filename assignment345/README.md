@@ -994,3 +994,289 @@ tests and outputs the results.
    
    See the top of each program's file for its expected output.
 
+# Appendix: Sample Compiler Inputs and Outputs
+Below are a few programs in the "csc488 project language" (the input to the compiler) along with
+the corresponding "csc488 machine" assembly code (the output of the compiler).
+
+## Program 1a
+A short program that doesn't use arrays, functions or procedures:
+
+### Project language:
+
+    {
+        int i
+        int j
+
+        i = 1
+        j = 1
+
+        if 3 + i * 5 / 2 = j then
+            put "hello world!", skip
+        else 
+            put "42", skip
+        fi
+    }
+
+### Project machine assembly:
+
+           ; back up display for scope's lexic level
+           ADDR 0 0
+
+           ; set up for scope (somewhat useless in this case)  
+           PUSHMT       ; update display
+           SETD 0       
+       
+           PUSH 0   ; allocate space for i
+           PUSH 0   ; allocate space for j
+
+           ADDR 0 0 ; LL(i) = ON(i) = 0
+           PUSH 1   
+           STORE    ; i = 1
+           ADDR 0 1 ; LL(j) = 0, ON(j) = 1
+           PUSH 1
+           STORE    ; j = 1
+
+           ADDR 0 0  
+           LOAD     ; load i 
+           PUSH 5
+           MUL      ; i *= 5
+           PUSH 2
+           DIV      ; i /= 2
+           PUSH 3
+           ADD      ; i += 3
+           ADDR 0 1
+           LOAD     ; push j
+           EQ       ; 3 + i * 5 / 2 = j ?
+           PUSH [ label else ]  
+           BF       ; jump to else branch if i != j
+
+           PUSH 104 ; push 'h'
+           PRINTC   ; print 'h'
+           PUSH 101 ; push 'e'
+           PRINTC   ; print 'e'
+           PUSH 108 ; push 'l'
+           PRINTC   ; print 'l'
+           PUSH 108 ; push 'l' 
+           PRINTC   ; print 'l'
+           PUSH 111 ; push 'o'
+           PRINTC   ; print 'o'
+           PUSH 032 ; push ' '
+           PRINTC   ; print ' ' 
+           PUSH 119 ; push 'w'
+           PRINTC   ; print 'w'
+           PUSH 111 ; push 'o'
+           PRINTC   ; print 'o'
+           PUSH 114 ; push 'r'
+           PRINTC   ; print 'r'
+           PUSH 108 ; push 'l'
+           PRINTC   ; print 'l'
+           PUSH 100 ; push 'd'
+           PRINTC   ; print 'd'
+           PUSH 033 ; push '!'
+           PRINTC   ; print '!'
+           PUSH 012 ; push '\n'
+           PRINTC   ; print '\n'
+
+    :else  PUSH 50  ; push '4'
+           PRINTC   ; print '4'
+           PUSH 52  ; push '2'
+           PRINTC   ; print '2'
+           PUSH 012 ; push '\n'
+           PRINTC   ; print '\n'
+
+           ; clean up scope  
+           PUSHMT 
+           ADDR 0 0 
+           SUB
+           POPN
+
+## Program 1c
+A program using loops, including nested loops
+
+### Project language:
+
+    {
+        int i 
+        int j
+        int total
+ 
+        total = 0
+        i = 0
+        while i < 10 do
+            j = 0
+            do
+                total = total + 1
+                j = j + 1
+            until j = 10
+            i = i + 1
+        od
+        put total, skip
+    }
+
+### Project machine assembly:
+
+                ; back up display for scope's lexic level
+                ADDR 0 0
+
+                ; initialise display at LL = 0
+                PUSHMT
+                SETD 0
+
+                PUSH 0                    ; allocate space for i
+                PUSH 0                    ; allocate space for j
+                PUSH 0                    ; allocate space for total
+
+                ; total = 0
+                ADDR 0 2    
+                PUSH 0
+                STORE      
+
+                ; i = 0
+                ADDR 0 0
+                PUSH 0
+                STORE
+
+    :whilecond  ADDR 0 0 
+                LOAD
+                PUSH 10 
+                LT        ; i < 10 ?
+                PUSH [ label exit      ]    
+                BF                        ; exit if i >= 10
+
+                ADDR 0 1                  ; j = 0
+                PUSH 0
+                STORE                     
+
+     :dostart   ADDR 0 2
+                LOAD                      ; load total
+                PUSH 1    
+                ADD       
+                ADDR 0 2
+                STORE                     ; total = total + 1
+
+                ADDR 0 1                  ; load j
+                LOAD                      
+                PUSH 1
+                ADD
+                ADDR 0 1
+                STORE                     ; j = j + 1
+
+                ADDR 0 1                  ; load j
+                LOAD                      
+                PUSH 10
+                EQ                        ; j = 10 ?
+                PUSH [ label dostart   ]  
+                BF
+
+                ADDR 0 0                  ; i = 0
+                LOAD                     
+                PUSH 1
+                ADD
+                ADDR 0 0
+                STORE                     ; i = i + 1
+
+                PUSH [ label whilecond ] 
+                BR
+
+    :exit       ADDR 0 2
+                LOAD                      ; load total
+                PRINTI                    ; put total
+                PUSH 012                  ; ASCII for '\n'
+                PRINTC                    ; put skip
+
+                ; clean up scope  
+                PUSHMT 
+                ADDR 0 0 
+                SUB
+                POPN
+
+## A program using recursive functions with parameters
+
+### Project language:
+
+    {
+        int factorial(int n) :
+        {
+            if (n = 0) then
+                result 1
+            else
+                result factorial(n - 1) * n
+            fi
+        }
+        put factorial(5)
+    }
+
+### Project machine assembly: 
+
+    ; start of body of main scope
+    :startpt    ADDR 0 0                 ; back up display 
+                PUSH 0                   ; add space for return of factorial(5)
+                ADDR 1 0 
+                PUSH [ label retaddr ] 
+                PUSH 5                   ; push the arg
+                PUSH [ label factorial ] 
+                BR
+    :retaddr2   SETD 1 
+                PRINTI
+                PUSHMT                   ; pop locals
+                ADDR 0 0 
+                SUB
+                POPN
+                SETD 0                   ; restore display
+
+    ; declaration for factorial
+    :factorial  PUSHMT                   ; beginning of factorial
+                PUSH 1                   ; push number of args 
+                SUB
+                SETD 1                   ; set the lexic level
+
+                                         ; if condition expression
+                PUSH 0               
+                ADDR 1 0
+                LOAD
+                EQ
+                PUSH [ label condf ] 
+                BF 
+
+                ADDR 1 0                ; result 1
+                PUSH 3
+                SUB
+                PUSH 1                  ; push value of expn
+                STORE
+                PUSH [ label funclean ]  
+                BR 
+
+     :condf      ADDR 1 0                ; address of return value
+                 PUSH 3
+                 SUB 
+
+                                         ; call factorial
+                 PUSH 0                  ; space for result
+                 ADDR 1 0                ; back up display 
+                 PUSH [ label retaddr ]  ; push return address 
+
+                                    ; load arguments 
+                 ADDR 1 0                ; load the first arg passed in, (n)
+                 LOAD                    ; load n
+                 PUSH 1   
+                 SUB                     ; subtract 1 from n
+
+                 PUSH [ label factorial ]; go to beginning of function
+                 BR
+
+     :retaddr    SETD 1 
+                                         ; multiply result by n
+                 ADDR 1 0 
+                 LOAD                    ; load n again
+                 MUL                     ; multiply n with factorial(n-1) 
+
+                 STORE                   ; store result  
+                 PUSH [ label funclean ] 
+                 BR                      ; end result factorial(n-1) * n
+
+     :funclean   PUSHMT 
+                 ADDR 1 0
+                 SUB
+                 POPN
+                 BR
+
