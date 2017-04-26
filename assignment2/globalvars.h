@@ -4,7 +4,7 @@
 /*  globalvars.h                                        */
 /*  CSC488S Project Compiler Shared Global Variables    */
 /*                                                      */
-/*  This file contains the definition of global         */
+/*  This file contains the declarations of global       */
 /*  variables that are used for communication among     */
 /*  the various compiler modules                        */
 /*                                                      */
