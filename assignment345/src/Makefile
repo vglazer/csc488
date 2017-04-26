@@ -62,7 +62,6 @@ CC = gcc
 #	-g needed for debuging
 #	-Wall	for really thorough checking
 CFLAGS = -g -Wall -ansi -pedantic -std=c99 -Werror
-#	Flags and files for the link editor (if required)
 
 PLATFORM = $(shell uname -s)
 ifeq ($(PLATFORM),Darwin)
@@ -72,6 +71,7 @@ else
 	FLEXLIB = fl
 	MAKEDEP = makedepend
 endif
+#	Linker flags
 LINKFLAGS = -l$(FLEXLIB)
 
 ###########################################################################

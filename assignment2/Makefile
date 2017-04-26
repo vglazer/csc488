@@ -36,8 +36,6 @@ CC = gcc
 #	-g needed for debuging
 #	-Wall	for really thorough checking
 CFLAGS = -g -Wall -ansi -pedantic -std=c99 -Werror
-#	Linker flags 
-LINKFLAGS = 
 # on OS X the flex library is called l rather than fl. go figure.
 PLATFORM = $(shell uname -s)
 ifeq ($(PLATFORM),Darwin)
@@ -45,6 +43,7 @@ ifeq ($(PLATFORM),Darwin)
 else
 	FLEXLIB = fl
 endif
+#	Linker flags 
 LINKFLAGS = -l$(FLEXLIB)
 
 ###########################################################################
