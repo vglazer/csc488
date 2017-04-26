@@ -208,9 +208,9 @@ unfortunate side effect of this is that for functions we must subtract the
 magic number 3 from `ADDR` [ function body's lexic level ] 0 to `STORE` the return
 value in the space we've allocated.
 
-When a `result` or return statement is encountered, we pop the current
+When a `result` or `return` statement is encountered, we pop the current
 stack frame as described in the section on "result / return". For result
-statements we of course STORE the result of the specified expression in the
+statements we of course `STORE` the result of the specified expression in the
 location allocated for the return value.  On return from a routine the stack
 looks like this:
 
