@@ -66,6 +66,6 @@ some of these. The rest of the tests can only be run manually (see the
 1. To get a sense of the various compilation steps, try turning on all of the debug and trace options, 
 like so:
 
-    ./compiler488 -Dabxy -Tacilpsxy -U./dump_file -R./trace_file ../test/q_c 
+      ./compiler488 -Dabxy -Tacilpsxy -U./dump_file -R./trace_file ../test/q_c 
 
 Now have a look at `./dump_file` and `./trace_file`.
