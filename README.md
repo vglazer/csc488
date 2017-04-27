@@ -46,7 +46,8 @@ and a parser for the "csc488 language". the code for these is generated using
 there are also some tests which are based on the programs from assignment1.
 * [assignment345](https://github.com/vglazer/csc488/tree/master/assignment345) builds on assignment2, 
 but is independent from it. it is a full-fledged compiler for the "csc488 language", which emits 
-instructions for a fictitious machine. there are also a variety of tests.
+instructions for a fictitious machine. embedded within the compiler binary is a virtual machine for
+executing the assembly code it emits, which you wouldn't be able to run otherwise.
 
 ## Getting Started
 1. `cd assignment345/src`
@@ -54,10 +55,15 @@ instructions for a fictitious machine. there are also a variety of tests.
 1. `make pdfman` (this is where `groff` comes in)
 1. This should create a compiler for the "csc488 language" in `./compiler488`. see 
 `./compiler488.pdf` for detailed usage options.
+1. You may wish to `make ctags` to help you navigate the codebase in vi or emacs.
 1. There are tests in `../test`. You can either `make test` or `cd ../test && ./run_codegentests.sh` to run 
 some of these. The rest of the tests can only be run manually (see the 
 [README](https://github.com/vglazer/csc488/blob/master/assignment345/README.md) for details).
-1. You can now use the compiler to run the "csc488 language" programs from 
-[assignment1](https://github.com/vglazer/csc488/tree/master/assignment1) and 
-[assignment2](https://github.com/vglazer/csc488/tree/master/assignment2).
-1. You may want to `make ctags` to help you navigate the codebase.
+1. You can now use the compiler to run the various "csc488 language" programs found in 
+[assignment1](https://github.com/vglazer/csc488/tree/master/assignment1), 
+[assignment2](https://github.com/vglazer/csc488/tree/master/assignment2) and 
+[assignment345](https://github.com/vglazer/csc488/tree/master/assignment345/test).
+1. To get a sense of the various compilation steps, try turning on all of the debug and trace options, 
+like so:
+    ./compiler488 -Dabxy -Tacilpsxy -U./dump_file -R./trace_file ../test/q_c 
+Now have a look at `./dump_file` and `./trace_file`.
