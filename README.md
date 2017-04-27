@@ -31,9 +31,9 @@ If you `brew install ctags` you will get [exuberant](http://ctags.sourceforge.ne
 [universal](https://github.com/universal-ctags) ctags, not that it matters in this context.
 
 ### On Ubuntu:
-* Run `sudo apt-get install -y gcc make flex bison groff ctags xutils-dev`
+* Run `sudo apt-get install -y gcc make flex bison groff ctags xutils-dev ghostscript`
 
-`xutils-dev` is how you pick up `makedepend`, in case you were wondering. 
+`xutils-dev` is how you pick up `makedepend`, in case you were wondering. `ghostscript` provides `ps2pdf`.
 
 ## Overview
 * [assignment1](https://github.com/vglazer/csc488/tree/master/assignment1) is a collection of programs 

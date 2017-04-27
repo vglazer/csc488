@@ -66,10 +66,12 @@ CFLAGS = -g -Wall -ansi -pedantic -std=gnu99 -Werror
 PLATFORM = $(shell uname -s)
 ifeq ($(PLATFORM),Darwin)
 	FLEXLIB = l
-	MAKEDEP = gcc -M	
+	MAKEDEP = gcc -M
+	PSTOPDF = pstopdf
 else
 	FLEXLIB = fl
 	MAKEDEP = makedepend
+	PSTOPDF = ps2pdf
 endif
 #	Linker flags
 LINKFLAGS = -l$(FLEXLIB)
@@ -193,7 +195,7 @@ $(TARGET).ps: $(MANFILE)
 	$(PSROFF) $(PSFLAGS) $(MANFILE) > $(TARGET).ps
 
 $(TARGET).pdf: $(TARGET).ps
-	pstopdf $(TARGET).ps
+	$(PSTOPDF) $(TARGET).ps
 
 textman:  $(TARGET).txt		#  ASCII text
 
@@ -214,3 +216,59 @@ depend: .depend
 	$(MAKEDEP)  $(CFILES) 
 	
 # DO NOT DELETE THIS LINE -- make depend depends on it.
+
+main.o: common.h /usr/include/stdio.h /usr/include/features.h
+main.o: /usr/include/stdc-predef.h /usr/include/libio.h
+main.o: /usr/include/_G_config.h /usr/include/wchar.h /usr/include/assert.h
+main.o: /usr/include/string.h /usr/include/xlocale.h /usr/include/stdlib.h
+main.o: /usr/include/alloca.h /usr/include/getopt.h globalvars.h ast.h
+main.o: astDef.h semantics.h codegen.h machine.h
+scanner.o: /usr/include/stdio.h /usr/include/features.h
+scanner.o: /usr/include/stdc-predef.h /usr/include/libio.h
+scanner.o: /usr/include/_G_config.h /usr/include/wchar.h
+scanner.o: /usr/include/string.h /usr/include/xlocale.h /usr/include/errno.h
+scanner.o: /usr/include/stdlib.h /usr/include/alloca.h common.h
+scanner.o: /usr/include/assert.h /usr/include/ctype.h /usr/include/endian.h
+scanner.o: globalvars.h ast.h astDef.h parser.tab.h /usr/include/unistd.h
+scanner.o: /usr/include/getopt.h
+parser.tab.o: common.h /usr/include/stdio.h /usr/include/features.h
+parser.tab.o: /usr/include/stdc-predef.h /usr/include/libio.h
+parser.tab.o: /usr/include/_G_config.h /usr/include/wchar.h
+parser.tab.o: /usr/include/assert.h /usr/include/string.h
+parser.tab.o: /usr/include/xlocale.h /usr/include/stdlib.h
+parser.tab.o: /usr/include/alloca.h globalvars.h ast.h astDef.h
+semantics.o: common.h /usr/include/stdio.h /usr/include/features.h
+semantics.o: /usr/include/stdc-predef.h /usr/include/libio.h
+semantics.o: /usr/include/_G_config.h /usr/include/wchar.h
+semantics.o: /usr/include/assert.h /usr/include/string.h
+semantics.o: /usr/include/xlocale.h /usr/include/stdlib.h
+semantics.o: /usr/include/alloca.h globalvars.h ast.h astDef.h semantics.h
+semantics.o: symbol.h codegen.h
+codegen.o: common.h /usr/include/stdio.h /usr/include/features.h
+codegen.o: /usr/include/stdc-predef.h /usr/include/libio.h
+codegen.o: /usr/include/_G_config.h /usr/include/wchar.h
+codegen.o: /usr/include/assert.h /usr/include/string.h /usr/include/xlocale.h
+codegen.o: /usr/include/stdlib.h /usr/include/alloca.h globalvars.h ast.h
+codegen.o: astDef.h machine.h machineDef.h symbol.h
+symbol.o: common.h /usr/include/stdio.h /usr/include/features.h
+symbol.o: /usr/include/stdc-predef.h /usr/include/libio.h
+symbol.o: /usr/include/_G_config.h /usr/include/wchar.h /usr/include/assert.h
+symbol.o: /usr/include/string.h /usr/include/xlocale.h /usr/include/stdlib.h
+symbol.o: /usr/include/alloca.h globalvars.h ast.h astDef.h symbol.h
+machine.o: common.h /usr/include/stdio.h /usr/include/features.h
+machine.o: /usr/include/stdc-predef.h /usr/include/libio.h
+machine.o: /usr/include/_G_config.h /usr/include/wchar.h
+machine.o: /usr/include/assert.h /usr/include/string.h /usr/include/xlocale.h
+machine.o: /usr/include/stdlib.h /usr/include/alloca.h globalvars.h ast.h
+machine.o: astDef.h machineDef.h
+ast.o: common.h /usr/include/stdio.h /usr/include/features.h
+ast.o: /usr/include/stdc-predef.h /usr/include/libio.h
+ast.o: /usr/include/_G_config.h /usr/include/wchar.h /usr/include/assert.h
+ast.o: /usr/include/string.h /usr/include/xlocale.h /usr/include/stdlib.h
+ast.o: /usr/include/alloca.h globalvars.h ast.h astDef.h
+astDump.o: common.h /usr/include/stdio.h /usr/include/features.h
+astDump.o: /usr/include/stdc-predef.h /usr/include/libio.h
+astDump.o: /usr/include/_G_config.h /usr/include/wchar.h
+astDump.o: /usr/include/assert.h /usr/include/string.h /usr/include/xlocale.h
+astDump.o: /usr/include/stdlib.h /usr/include/alloca.h globalvars.h ast.h
+astDump.o: astDef.h
