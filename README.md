@@ -52,7 +52,7 @@ executing the assembly code it emits, which you wouldn't be able to run otherwis
 ## Getting Started
 1. `cd assignment345/src`
 1. `make` (this part requires `flex` and `bison`)
-1. `make pdfman` (this is where `groff` comes in)
+1. `make pdfman` (this is where `groff` and `pstopdf`/`ps2pdf` come in)
 1. This should create a compiler for the "csc488 language" in `./compiler488`. see 
 `./compiler488.pdf` for detailed usage options.
 1. You may wish to `make ctags` to help you navigate the codebase in vi or emacs.
