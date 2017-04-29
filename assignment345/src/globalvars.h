@@ -11,8 +11,8 @@
 /********************************************************/
 
     /************************************************/
-    /*  These variables are extern except in main.c */
-    /*  and astTest.c                               */
+    /*  These variables are extern except in the    */ 
+    /*  drivers (currently main.c and astTest.c)    */
     /************************************************/
     
 #ifndef  EXTERN_GLOBALS
