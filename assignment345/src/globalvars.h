@@ -12,6 +12,7 @@
 
     /************************************************/
     /*  These variables are extern except in main.c */
+    /*  and astTest.c                               */
     /************************************************/
     
 #ifndef  EXTERN_GLOBALS
