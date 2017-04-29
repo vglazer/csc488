@@ -8,7 +8,7 @@
 #define _COMMON_H_
 
 /************************************************/
-/*  C libraries that are widely used        */
+/*  C libraries that are widely used            */
 /************************************************/
 
 #include <stdio.h>
@@ -47,7 +47,7 @@
 /************************************************/
 /*  Limit on range of integer values            */
 /* ASSUMES machine memory is 16-bit short int   */
-/* Note that range is symmatric about zero so   */
+/* Note that range is symmetric about zero so   */
 /* -32768 can be used for UNDEFINED value       */
 /************************************************/
 
