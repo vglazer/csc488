@@ -25,6 +25,7 @@
 #	make    scanner		Build the scanner module
 #	make	parser		Build the parser module
 #	make	ast			Build the AST module
+#	make	astTest		Build the standalone AST tests
 #	make	main		Build the main driver program
 #	make	semantics	Build the semantics analysis module
 #	make    codegen		Build the code generation module
