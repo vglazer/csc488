@@ -14,7 +14,8 @@
 #	
 #	This make file provides the following targets
 #
-#	make	all			Build the complete compiler
+#	make	all			Build the complete compiler (debuggable version)
+#	make	opt			Build the complete compiler (optimized version)
 #	make	compiler	Build the complete compiler
 #	make 	depend		Invoke makedepend to build dependency information for C files
 #	make	clean		Remove all derived files
@@ -25,7 +26,6 @@
 #	make    scanner		Build the scanner module
 #	make	parser		Build the parser module
 #	make	ast			Build the AST module
-#	make	astTest		Build the standalone AST tests
 #	make	main		Build the main driver program
 #	make	semantics	Build the semantics analysis module
 #	make    codegen		Build the code generation module
@@ -63,6 +63,8 @@ CC = gcc
 #	-g needed for debuging
 #	-Wall	for really thorough checking
 CFLAGS = -g -Wall -ansi -pedantic -std=gnu99 -Werror
+CFLAGS_DBG = -g
+CFLAGS_OPT = -O2 -DNDEBUG
 
 PLATFORM = $(shell uname -s)
 ifeq ($(PLATFORM),Darwin)
@@ -108,63 +110,69 @@ TARGET	=  compiler488
 #	
 ###########################################################################
 
-all:	depend compiler
+all:	CFLAGS += $(CFLAGS_DBG)
+all:	depend compiler astTest
 compiler: $(TARGET)
 
-$(TARGET): $(OFILES)	
+opt:	CFLAGS += $(CFLAGS_OPT)
+opt:	all
+
+$(TARGET): $(OFILES)
 	$(CC) -o $(TARGET) $(OFILES) $(LINKFLAGS)
 
-main main.o : main.c $(HCOMMON) machine.h semantics.h codegen.h
+main.o: main.c $(HINTERFACES) $(HCOMMON) 
 	$(CC) -c $(CFLAGS) main.c
 
-scanner scanner.o:  ${HCOMMON} scanner.c
-	${CC} ${CFLAGS} -c -o scanner.o scanner.c
+scanner.o: scanner.c ${HCOMMON}
+	${CC} ${CFLAGS} -c scanner.c
 
-scanner.c: scanner.l parser.tab.h 
+scanner.c: scanner.l parser.tab.h $(HCOMMON)
 	${FLEX} ${FLEXFLAGS} scanner.l
 
 parser.output: parser.tab.c
 
-parser parser.o:  parser.tab.c
+parser.o: parser.tab.c ${HCOMMON}
 	${CC} -c ${CFLAGS} -o parser.o parser.tab.c
 
-parser.tab.c: parser.y  $(HCOMMON)
+parser.tab.c: parser.y $(HCOMMON)
 	${BISON} ${BISONFLAGS} parser.y
 
 parser.tab.h: parser.tab.c
 
-ast ast.o:	ast.h astDef.h ast.c
+ast.o: ast.c ast.h $(HAST) ${HCOMMON} 
 	$(CC) -c $(CFLAGS) ast.c
-	
-astDump astDump.o:	ast.h astDef.h astDump.c
+
+astDump.o: astDump.c ast.h $(HAST) ${HCOMMON} 
 	$(CC) -c $(CFLAGS) astDump.c
 	
-semantics semantics.o : semantics.h semantics.c ${HCOMMON}  symbol.h 	 
+astTest.o: astTest.c ast.h ${HCOMMON}
+	$(CC) -c $(CFLAGS) astTest.c
+
+semantics.o: semantics.c semantics.h symbol.h ${HCOMMON} 
 	$(CC) -c $(CFLAGS) semantics.c
 
-codegen codegen.o : codegen.h codegen.c  $(HCOMMON) machineDef.h machine.h
+codegen.o: codegen.c codegen.h machine.h $(HMACHINE) $(HCOMMON) 
 	$(CC) -c $(CFLAGS) codegen.c
 
-symbol symbol.o : symbol.h symbol.c $(HCOMMON)
+symbol.o: symbol.c symbol.h $(HCOMMON)
 	$(CC) -c $(CFLAGS) symbol.c
 
-machine machine.o :  machine.h machine.c $(HCOMMON) machineDef.h 
+machine.o: machine.c machine.h $(HMACHINE) $(HCOMMON)
 	$(CC) -c $(CFLAGS) machine.c
 
-machineDef.h:     common.h 
-
+machineDef.h: common.h 
 
 tables: parser.tab.c parser.output
 
-astTest: astDump.o ast.o symbol.o astTest.c 
-	$(CC) -o astTest astTest.c astDump.o ast.o symbol.o
+astTest: astTest.o astDump.o ast.o symbol.o
+	$(CC) -o astTest astTest.o astDump.o ast.o symbol.o $(LINKFLAGS) 
 
 ###########################################################################
 #	remove all derived files
 ###########################################################################
 
 clean:
-	rm -f compiler compiler488 $(OFILES) 
+	rm -f compiler compiler488 $(OFILES) astTest.o
 	rm -f compiler488.txt compiler488.ps compiler488.pdf
 	rm -f parser.tab.[ch] parser.output scanner.c *~
 	rm -f .depend .*.swp tags
