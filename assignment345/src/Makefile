@@ -214,7 +214,7 @@ $(TARGET).txt: $(MANFILE)
 
 clean:
 	rm -f $(TARGET) $(AST_TEST_TARGET) *.o
-	rm -f $(TARGET).{pdf, ps, txt}
+	rm -f $(TARGET).{pdf,ps,txt}
 	rm -f scanner.c parser.tab.[ch] parser.output
 	rm -f .depend tags
 
