@@ -1,35 +1,22 @@
 ###########################################################################
 #	
-#	Makefile
+#	Makefile for compiler  - csc488s course project compiler
 #
-#       Makefile version:  $Id: Makefile,v 1.12 2003/04/08 04:48:44 g9macrya Exp $
+#	This file describes the dependencies between the various compiler components
 #
-#	makefile for compiler  - csc488s course project compiler
-#
-#	This file describes the dependencies between the
-#	various compiler components.
 ###########################################################################
 
 ###########################################################################
 #	
 #	This make file provides the following targets
 #
-#	make	all			Build the complete compiler (debuggable version)
-#	make	opt			Build the complete compiler (optimized version)
+#	make	all			Build the compiler and AST test, generate manual (debuggable)
+#	make	opt			Build the compiler and AST test, generate manual (optimized)
 #	make	compiler	Build the complete compiler
-#	make 	depend		Invoke makedepend to build dependency information for C files
-#	make	clean		Remove all derived files
 #	make 	test        Run tests
 #	make    postman		Build PostScript version of compiler man page
 #	make	textman		Build text version of compiler man page
-#	
-#	make    scanner		Build the scanner module
-#	make	parser		Build the parser module
-#	make	ast			Build the AST module
-#	make	main		Build the main driver program
-#	make	semantics	Build the semantics analysis module
-#	make    codegen		Build the code generation module
-#	make	machine		Build the machine interpreter module
+#	make	clean		Remove all derived files
 #
 ###########################################################################
 
@@ -40,13 +27,13 @@
 ###########################################################################
 
 #   Make command
-MAKE  = make
+MAKE = make
 
 #   Manual processing commands and flags
-PSROFF	= groff
+PSROFF = groff
 PSFLAGS = -man -Tps
-NROFF	= groff
-NFLAGS	= -man -Tascii
+NROFF = groff
+NFLAGS = -man -Tascii
 
 #   Flex and Bison commands
 FLEX = flex
@@ -55,14 +42,13 @@ BISON = bison
 BISONFLAGS = --debug --file-prefix=parser --defines --verbose
 
 ###########################################################################
-# 	Compiler and Compiler Flags
-#	Compiler REQUIRES ANSI C compiler
+#
+# 	Compiler and Compiler Flags (an ANSI C compiler is required)
+#
 ###########################################################################
 
 CC = gcc
-#	-g needed for debuging
-#	-Wall	for really thorough checking
-CFLAGS = -g -Wall -ansi -pedantic -std=gnu99 -Werror
+CFLAGS = -Wall -ansi -pedantic -Werror -std=gnu99 
 CFLAGS_DBG = -g
 CFLAGS_OPT = -O2 -DNDEBUG
 
@@ -76,6 +62,7 @@ else
 	MAKEDEP = makedepend
 	PSTOPDF = ps2pdf
 endif
+
 #	Linker flags
 LINKFLAGS = -l$(FLEXLIB)
 
@@ -85,131 +72,51 @@ LINKFLAGS = -l$(FLEXLIB)
 #	
 ###########################################################################
 
-HINTERFACES = ast.h semantics.h symbol.h machine.h 
-HCOMMON     = common.h globalvars.h
-HAST	    = astDef.h  
-HMACHINE    = machineDef.h
- 
-HFILES  =  $(HINTERFACES) $(HTABLES) $(HCOMMON) $(HMACHINE) $(HAST)
-  
+HCOMMON = common.h globalvars.h
 CFILES = main.c scanner.c parser.tab.c semantics.c codegen.c symbol.c machine.c ast.c astDump.c
-
 OFILES = main.o scanner.o parser.o semantics.o codegen.o symbol.o machine.o ast.o astDump.o
 
 ###########################################################################
 #	
-#   Name for the executable compiler
-#	
-###########################################################################
-
-TARGET	=  compiler488
-
-###########################################################################
-#	
-#	Dependencies for the compiler
+#  Targets for building the executables 
 #	
 ###########################################################################
 
 all:	CFLAGS += $(CFLAGS_DBG)
-all:	depend compiler astTest
-compiler: $(TARGET)
+all:	depend compiler ast_test pdfman
 
 opt:	CFLAGS += $(CFLAGS_OPT)
 opt:	all
 
+TARGET = compiler488
+AST_TEST_TARGET = astTest
+
+compiler: $(TARGET)
+ast_test: $(AST_TEST_TARGET)
+
 $(TARGET): $(OFILES)
 	$(CC) -o $(TARGET) $(OFILES) $(LINKFLAGS)
 
-main.o: main.c $(HINTERFACES) $(HCOMMON) 
-	$(CC) -c $(CFLAGS) main.c
+$(AST_TEST_TARGET): astTest.o astDump.o ast.o symbol.o
+	$(CC) -o $(AST_TEST_TARGET) astTest.o astDump.o ast.o symbol.o $(LINKFLAGS) 
 
-scanner.o: scanner.c ${HCOMMON}
-	${CC} ${CFLAGS} -c scanner.c
+###########################################################################
+#
+#    Flex and Bison-related targets
+#
+###########################################################################
 
 scanner.c: scanner.l parser.tab.h $(HCOMMON)
-	${FLEX} ${FLEXFLAGS} scanner.l
-
-parser.output: parser.tab.c
-
-parser.o: parser.tab.c ${HCOMMON}
-	${CC} -c ${CFLAGS} -o parser.o parser.tab.c
-
-parser.tab.c: parser.y $(HCOMMON)
-	${BISON} ${BISONFLAGS} parser.y
-
-parser.tab.h: parser.tab.c
-
-ast.o: ast.c ast.h $(HAST) ${HCOMMON} 
-	$(CC) -c $(CFLAGS) ast.c
-
-astDump.o: astDump.c ast.h $(HAST) ${HCOMMON} 
-	$(CC) -c $(CFLAGS) astDump.c
-	
-astTest.o: astTest.c ast.h ${HCOMMON}
-	$(CC) -c $(CFLAGS) astTest.c
-
-semantics.o: semantics.c semantics.h symbol.h ${HCOMMON} 
-	$(CC) -c $(CFLAGS) semantics.c
-
-codegen.o: codegen.c codegen.h machine.h $(HMACHINE) $(HCOMMON) 
-	$(CC) -c $(CFLAGS) codegen.c
-
-symbol.o: symbol.c symbol.h $(HCOMMON)
-	$(CC) -c $(CFLAGS) symbol.c
-
-machine.o: machine.c machine.h $(HMACHINE) $(HCOMMON)
-	$(CC) -c $(CFLAGS) machine.c
-
-machineDef.h: common.h 
+	$(FLEX) $(FLEXFLAGS) scanner.l
 
 tables: parser.tab.c parser.output
 
-astTest: astTest.o astDump.o ast.o symbol.o
-	$(CC) -o astTest astTest.o astDump.o ast.o symbol.o $(LINKFLAGS) 
+parser.output: parser.tab.c
 
-###########################################################################
-#	remove all derived files
-###########################################################################
+parser.tab.h: parser.tab.c
 
-clean:
-	rm -f compiler compiler488 $(OFILES) astTest.o
-	rm -f compiler488.txt compiler488.ps compiler488.pdf
-	rm -f parser.tab.[ch] parser.output scanner.c *~
-	rm -f .depend .*.swp tags
-
-###########################################################################
-# Run tests
-###########################################################################
-test:
-	cd ../test && bash ./run_codegentests.sh && cd -
-
-###########################################################################
-# Run tests
-###########################################################################
-tags:
-	ctags -R
-
-###########################################################################
-#	
-#  Make printable versions of compiler488.man 
-#	
-###########################################################################
-
-postman:  $(TARGET).ps		#  Postscript
-pdfman:  $(TARGET).pdf		#  PDF
-
-MANFILE = ../doc/compiler488.man
-
-$(TARGET).ps: $(MANFILE)
-	$(PSROFF) $(PSFLAGS) $(MANFILE) > $(TARGET).ps
-
-$(TARGET).pdf: $(TARGET).ps
-	$(PSTOPDF) $(TARGET).ps
-
-textman:  $(TARGET).txt		#  ASCII text
-
-$(TARGET).txt: $(MANFILE)
-	$(NROFF)  $(NFLAGS)  $(MANFILE) > $(TARGET).txt
+parser.tab.c: parser.y $(HCOMMON)
+	$(BISON) $(BISONFLAGS) parser.y
 
 ###########################################################################
 #	
@@ -217,11 +124,98 @@ $(TARGET).txt: $(MANFILE)
 #	
 ###########################################################################
 
-.depend:  scanner.c parser.tab.c
+.depend: scanner.c parser.tab.c
 	touch  .depend
 	
-
 depend: .depend
 	$(MAKEDEP)  $(CFILES) 
+
+###########################################################################
+#	
+#    Object files
+#	
+###########################################################################
+
+main.o: main.c ast.h semantics.h symbol.h machine.h $(HCOMMON) 
+	$(CC) -c $(CFLAGS) main.c
+
+scanner.o: scanner.c $(HCOMMON)
+	$(CC) $(CFLAGS) -c scanner.c
+
+parser.o: parser.tab.c $(HCOMMON)
+	$(CC) -c $(CFLAGS) -o parser.o parser.tab.c
+
+ast.o: ast.c ast.h astDef.h $(HCOMMON) 
+	$(CC) -c $(CFLAGS) ast.c
+
+astDump.o: astDump.c ast.h astDef.h $(HCOMMON) 
+	$(CC) -c $(CFLAGS) astDump.c
 	
+astTest.o: astTest.c ast.h $(HCOMMON)
+	$(CC) -c $(CFLAGS) astTest.c
+
+semantics.o: semantics.c semantics.h symbol.h $(HCOMMON) 
+	$(CC) -c $(CFLAGS) semantics.c
+
+codegen.o: codegen.c codegen.h machine.h machineDef.h $(HCOMMON) 
+	$(CC) -c $(CFLAGS) codegen.c
+
+symbol.o: symbol.c symbol.h $(HCOMMON)
+	$(CC) -c $(CFLAGS) symbol.c
+
+machine.o: machine.c machine.h machineDef.h $(HCOMMON)
+	$(CC) -c $(CFLAGS) machine.c
+
+###########################################################################
+#
+#    Run tests
+#
+###########################################################################
+
+test:
+	cd ../test && bash ./run_codegentests.sh && cd - && ./$(AST_TEST_TARGET)
+
+###########################################################################
+#
+#    Generate ctags
+#
+###########################################################################
+
+tags:
+	ctags -R
+
+###########################################################################
+#	
+#    Generate manual files in various formats
+#	
+###########################################################################
+
+postman: $(TARGET).ps		#  Postscript
+pdfman: $(TARGET).pdf		#  PDF
+
+MANFILE = ../doc/$(TARGET).man
+
+$(TARGET).ps: $(MANFILE)
+	$(PSROFF) $(PSFLAGS) $(MANFILE) > $(TARGET).ps
+
+$(TARGET).pdf: $(TARGET).ps
+	$(PSTOPDF) $(TARGET).ps
+
+textman: $(TARGET).txt		#  ASCII text
+
+$(TARGET).txt: $(MANFILE)
+	$(NROFF) $(NFLAGS) $(MANFILE) > $(TARGET).txt
+
+###########################################################################
+#
+#    Remove all generated files
+#
+###########################################################################
+
+clean:
+	rm -f $(TARGET) $(AST_TEST_TARGET) *.o
+	rm -f $(TARGET).{pdf, ps, txt}
+	rm -f scanner.c parser.tab.[ch] parser.output
+	rm -f .depend tags
+
 # DO NOT DELETE THIS LINE -- make depend depends on it.
