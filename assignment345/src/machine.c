@@ -153,12 +153,14 @@ static int formatInstruction( int addr ) {
                 
              default :
                 assert( FALSE );    /* error in instructionLength[] */
-           } ;
+           }
          }
          else{  /*  not an instruction */
             sprintf( instructionBuffer, "%8d", opCode );
             return 1 ;
          }
+
+      return 1; /* Can't happen */
    }
    
 /************************************************************************/

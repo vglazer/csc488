@@ -898,6 +898,7 @@ DataType checkExpn( ExpnP expn ) {
     /* All expressions should be handled above.  Nothing should fall through
      * to here */
     assert( FALSE );
+    return Dnone; /* Can't happen */
 }
 
 
