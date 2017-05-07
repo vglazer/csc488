@@ -16,7 +16,7 @@ Other flavors of Linux should also work, but haven't been tested. The same goes 
 
 ## Dependencies
 You will need a C compiler (`clang` or `gcc`) and GNU `make`. `flex` and `bison` are also required. 
-`groff` amd `ctags` are optional. `makedepend` is used on Linux, but not macOS.
+`ctags`, `groff` and `ps2pdf` are optional.
 
 ### On macOS:
 1. Install XCode from the App Store
@@ -31,9 +31,9 @@ If you `brew install ctags` you will get [exuberant](http://ctags.sourceforge.ne
 [universal](https://github.com/universal-ctags) ctags, not that it matters in this context.
 
 ### On Ubuntu:
-* Run `sudo apt-get install -y gcc make flex bison groff ctags xutils-dev ghostscript`
+* Run `sudo apt-get install -y gcc make flex bison groff ctags ghostscript`
 
-`xutils-dev` is how you pick up `makedepend`, in case you were wondering. `ghostscript` provides `ps2pdf`.
+`ghostscript` provides `ps2pdf`, in case you were wondering.
 
 ## Overview
 * [assignment1](https://github.com/vglazer/csc488/tree/master/assignment1) is a collection of programs 
@@ -52,12 +52,10 @@ executing the assembly code it emits, which you wouldn't be able to run otherwis
 ## Getting Started
 1. `cd assignment345/src`
 1. `make` (this part requires `flex` and `bison`)
-1. `make pdfman` (this is where `groff` and `pstopdf`/`ps2pdf` come in)
 1. This should create a compiler for the "csc488 language" in `./compiler488`. see 
 `./compiler488.pdf` for detailed usage options.
-1. You may wish to `make ctags` to help you navigate the codebase in vi or emacs.
-1. There are tests in `../test`. You can either `make test` or `cd ../test && ./run_codegentests.sh` to run 
-some of these. The rest of the tests can only be run manually (see the 
+1. There are tests in `../test`. Most of these can be run with `make test`. 
+The rest must be run manually (see the 
 [README](https://github.com/vglazer/csc488/blob/master/assignment345/README.md) for details).
 1. You can now use the compiler to run the various "csc488 language" programs found in 
 [assignment1](https://github.com/vglazer/csc488/tree/master/assignment1), 
