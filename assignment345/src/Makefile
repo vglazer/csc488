@@ -83,7 +83,7 @@ OFILES = main.o scanner.o parser.o semantics.o codegen.o symbol.o machine.o ast.
 ###########################################################################
 
 all:	CFLAGS += $(CFLAGS_DBG)
-all:	depend compiler ast_test pdfman
+all:	depend compiler ast_test textman pdfman tags
 
 opt:	CFLAGS += $(CFLAGS_OPT)
 opt:	all
@@ -181,7 +181,7 @@ test:
 #
 ###########################################################################
 
-tags:
+tags: *.h *.c
 	ctags -R
 
 ###########################################################################
