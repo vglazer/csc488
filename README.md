@@ -16,7 +16,7 @@ Other flavors of Linux should also work, but haven't been tested. The same goes 
 
 ## Dependencies
 You will need a C compiler (`clang` or `gcc`) and GNU `make`. `flex` and `bison` are also required. 
-`ctags`, `groff` and `ps2pdf` are optional.
+`ctags`, `groff` and `ps{to,2}pdf` are optional.
 
 ### On macOS:
 1. Install XCode from the App Store
@@ -51,7 +51,11 @@ executing the assembly code it emits, which you wouldn't be able to run otherwis
 
 ## Getting Started
 1. `cd assignment345/src`
-1. `make` (this part requires `flex` and `bison`)
+1. `make`. This will build the compiler as well as generate the manpage and tags.
+    1. Building the compiler requires `flex` and `bison`
+    1. Generating the manpage requires `groff` and `ps{to,2}pdf`
+    1. Generating tags requires `ctags`
+    1. If you just want the compiler, run `make compiler`
 1. This should create a compiler for the "csc488 language" in `./compiler488`. see 
 `./compiler488.pdf` for detailed usage options.
 1. There are tests in `../test`. Most of these can be run with `make test`. 
