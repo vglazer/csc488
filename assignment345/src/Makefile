@@ -104,11 +104,8 @@ $(AST_TEST_TARGET): astTest.o astDump.o ast.o symbol.o
 #
 ###########################################################################
 
-scanner.c: scanner.l parser.tab.h $(HCOMMON)
+scanner.c: scanner.l parser.tab.c $(HCOMMON)
 	$(FLEX) $(FLEXFLAGS) scanner.l
-
-# this target links scanner.c with parser.tab.c
-parser.tab.h: parser.tab.c
 
 parser.tab.c: parser.y $(HCOMMON)
 	$(BISON) $(BISONFLAGS) parser.y
