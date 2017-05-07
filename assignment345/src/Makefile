@@ -109,10 +109,7 @@ $(AST_TEST_TARGET): astTest.o astDump.o ast.o symbol.o
 scanner.c: scanner.l parser.tab.h $(HCOMMON)
 	$(FLEX) $(FLEXFLAGS) scanner.l
 
-tables: parser.tab.c parser.output
-
-parser.output: parser.tab.c
-
+# this target links scanner.c with parser.tab.c
 parser.tab.h: parser.tab.c
 
 parser.tab.c: parser.y $(HCOMMON)
