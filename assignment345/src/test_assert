@@ -1,7 +1,0 @@
-{
-    put "hello 1", skip
-    assert true 
-    put "hello 2", skip
-    assert false
-    put "hello 3", skip
-}
