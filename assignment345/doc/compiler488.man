@@ -13,15 +13,15 @@ compiler488 \- a compiler for the CSC 488S Project Language
 .IN +\w'\fBcompiler488 \fR'u
 .TI -\w'\fBcompiler488 \fR'u
 .B compiler488\ 
-[ \fB\-X\fR\ ]
-[ \fB\-D\fR[\fIabxy\fR] ]
-[ \fB\-T\fR[\fIacilpsxy\fR] ]
-[ \fB\-O\fR\ \fIoutputFilename\fR\ ]
-[ \fB\-E\fR\ \fIerrorFilename\fR\ ]
-[ \fB\-R\fR\ \fItraceFilename\fR\ ]
-[ \fB\-U\fR\ \fIdumpFilename\fR\ ]
-[ \fB\-I\fR\ \fIrunInputFilename\fR\ ]
-[ \fI\ sourceFile\ \fR\ ]
+[\fB\-X\fR\]
+[\fB\-D\fR[\fIabxy\fR]]
+[\fB\-T\fR[\fIacilpsxy\fR]]
+[\fB\-O\fR\ \fIoutputFilename\fR\]
+[\fB\-E\fR\ \fIerrorFilename\fR\]
+[\fB\-R\fR\ \fItraceFilename\fR\]
+[\fB\-U\fR\ \fIdumpFilename\fR\]
+[\fB\-I\fR\ \fIrunInputFilename\fR\]
+[\fIsourceFile\fR\]
 .SH DESCRIPTION
 .B compiler488
 is an incredibly well designed and implemented compiler for the
