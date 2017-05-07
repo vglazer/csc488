@@ -2,10 +2,12 @@
 .#*
 *.o
 tags
-Makefile.bak
+astTest
 compiler488
+compiler488.txt
+compiler488.ps
+compiler488.pdf
 parser.output
 parser.tab.h
 parser.tab.c
 scanner.c
-.depend
