@@ -55,11 +55,9 @@ CFLAGS_OPT = -O2 -DNDEBUG
 PLATFORM = $(shell uname -s)
 ifeq ($(PLATFORM),Darwin)
 	FLEXLIB = l
-	MAKEDEP = gcc -M
 	PSTOPDF = pstopdf
 else
 	FLEXLIB = fl
-	MAKEDEP = makedepend
 	PSTOPDF = ps2pdf
 endif
 
@@ -83,7 +81,7 @@ OFILES = main.o scanner.o parser.o semantics.o codegen.o symbol.o machine.o ast.
 ###########################################################################
 
 all:	CFLAGS += $(CFLAGS_DBG)
-all:	depend compiler ast_test textman pdfman tags
+all:	compiler ast_test textman pdfman tags
 
 opt:	CFLAGS += $(CFLAGS_OPT)
 opt:	all
@@ -114,18 +112,6 @@ parser.tab.h: parser.tab.c
 
 parser.tab.c: parser.y $(HCOMMON)
 	$(BISON) $(BISONFLAGS) parser.y
-
-###########################################################################
-#	
-#  Make dependencies for source files 
-#	
-###########################################################################
-
-depend: .depend
-	$(MAKEDEP)  $(CFILES) 
-
-.depend: scanner.c parser.tab.c
-	touch  .depend
 
 ###########################################################################
 #	
@@ -183,7 +169,7 @@ tags: *.h *.c
 
 ###########################################################################
 #	
-#    Generate manual files in various formats
+#    Generate man files in various formats
 #	
 ###########################################################################
 
