@@ -80,17 +80,25 @@ OFILES = main.o scanner.o parser.o semantics.o codegen.o symbol.o machine.o ast.
 #	
 ###########################################################################
 
-all:	CFLAGS += $(CFLAGS_DBG)
-all:	compiler ast_test textman pdfman tags
-
-opt:	CFLAGS += $(CFLAGS_OPT)
-opt:	all
-
 TARGET = compiler488
 AST_TEST_TARGET = astTest
 
-compiler: $(TARGET)
-ast_test: $(AST_TEST_TARGET)
+all:	compiler_dbg ast_test_dbg rest
+dbg:	all
+opt:	compiler_opt ast_test_opt rest
+rest:	textman pdfman tags
+
+compiler: compiler_dbg
+compiler_dbg: CFLAGS += $(CFLAGS_DBG)
+compiler_dbg: $(TARGET)
+compiler_opt: CFLAGS += $(CFLAGS_OPT)
+compiler_opt: $(TARGET)
+
+ast_test: ast_test_dbg
+ast_test_dbg: CFLAGS += $(CFLAGS_DBG)
+ast_test_dbg: $(AST_TEST_TARGET)
+ast_test_opt: CFLAGS += $(CFLAGS_OPT)
+ast_test_opt: $(AST_TEST_TARGET)
 
 $(TARGET): $(OFILES)
 	$(CC) -o $(TARGET) $(OFILES) $(LINKFLAGS)
