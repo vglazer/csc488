@@ -60,7 +60,44 @@ then
     echo "                 i = 10 (expected 10)"
     echo "                 i = 10 (expected 10)"
     $COMPILER ./display_test
+    echo "----------------------------------------------------------------"
+    echo "test_assert: a program that uses asserts"
+    echo "Expected Output: hello 1"
+    echo "                 hello 2"
+    $COMPILER ./test_assert
+    echo "----------------------------------------------------------------"
+    echo "test_for: a program that uses do and for loops"
+    echo "Expected Output: firstloop"
+    echo "                 firstloop"
+    echo "                 firstloop"
+    echo "                 firstloop"
+    echo "                 firstloop"
+    echo "                 i is now -20"
+    echo "                 i is now -25"
+    echo "                 i is now -30"
+    echo "                 i is now -35"
+    $COMPILER ./test_for
+    echo "----------------------------------------------------------------"
+    echo "test_forward: a program that uses forward declarations"
+    echo "Expected Output: 10"
+    echo "                 9"
+    echo "                 8"
+    echo "                 7"
+    echo "                 6"
+    echo "                 5"
+    echo "                 4"
+    echo "                 3"
+    echo "                 2"
+    echo "                 1"
+    echo "                 0"
+    echo "                 0"
+    $COMPILER ./test_forward
+    echo "----------------------------------------------------------------"
+    echo "test_declinit: a program declaring boolean and integer variables"
+    echo "Expected Output: i is true"
+    echo "                 j is false"
+    echo "                 k = 100,l = 100"
+    $COMPILER ./test_declinit
 else
     echo "Compiler not present. Run make or something."
 fi
-
