@@ -51,11 +51,13 @@ executing the assembly code it emits, which you wouldn't be able to run otherwis
 
 ## Getting Started
 1. `cd assignment345/src`
-1. Run `make`. This will build the compiler as well as generate the manpage and tags.
+1. Run `make` (for debuggable binaries) or `make opt` (for optimized ones). This will build the 
+compiler and AST test driver, as well as generating a manpage for the compiler in several formats. It will
+also index the headers and sources to produce a tags file.
     1. Building the compiler requires `flex` and `bison`
     1. Generating the manpages requires `groff` and `ps{to,2}pdf`
     1. Generating tags requires `ctags`
-    1. If you just want the compiler, run `make compiler` instead
+    1. If you just want the compiler, run `make compiler` or `make compiler_opt` instead
 1. This should create a compiler for the "csc488 language" in `./compiler488`. see 
 `./compiler488.pdf` for detailed usage options.
 1. There are tests in `../test`. Most of these can be run with `make test`. 
