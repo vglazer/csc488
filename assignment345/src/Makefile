@@ -200,5 +200,3 @@ clean:
 	rm -f scanner.c parser.tab.[ch] *.o parser.output
 	rm -f $(TARGET).{pdf,ps,txt}
 	rm -f .depend tags
-
-# DO NOT DELETE THIS LINE -- make depend depends on it.
