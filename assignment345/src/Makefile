@@ -136,15 +136,6 @@ depend: .depend
 #	
 ###########################################################################
 
-main.o: main.c ast.h semantics.h symbol.h machine.h $(HCOMMON) 
-	$(CC) -c $(CFLAGS) main.c
-
-scanner.o: scanner.c $(HCOMMON)
-	$(CC) $(CFLAGS) -c scanner.c
-
-parser.o: parser.tab.c $(HCOMMON)
-	$(CC) -c $(CFLAGS) -o parser.o parser.tab.c
-
 ast.o: ast.c ast.h astDef.h $(HCOMMON) 
 	$(CC) -c $(CFLAGS) ast.c
 
@@ -154,17 +145,26 @@ astDump.o: astDump.c ast.h astDef.h $(HCOMMON)
 astTest.o: astTest.c ast.h $(HCOMMON)
 	$(CC) -c $(CFLAGS) astTest.c
 
-semantics.o: semantics.c semantics.h symbol.h $(HCOMMON) 
-	$(CC) -c $(CFLAGS) semantics.c
-
 codegen.o: codegen.c codegen.h machine.h machineDef.h $(HCOMMON) 
 	$(CC) -c $(CFLAGS) codegen.c
 
-symbol.o: symbol.c symbol.h $(HCOMMON)
-	$(CC) -c $(CFLAGS) symbol.c
-
 machine.o: machine.c machine.h machineDef.h $(HCOMMON)
 	$(CC) -c $(CFLAGS) machine.c
+
+main.o: main.c ast.h semantics.h symbol.h machine.h $(HCOMMON) 
+	$(CC) -c $(CFLAGS) main.c
+
+parser.o: parser.tab.c $(HCOMMON)
+	$(CC) -c $(CFLAGS) -o parser.o parser.tab.c
+
+scanner.o: scanner.c $(HCOMMON)
+	$(CC) $(CFLAGS) -c scanner.c
+
+semantics.o: semantics.c semantics.h symbol.h $(HCOMMON) 
+	$(CC) -c $(CFLAGS) semantics.c
+
+symbol.o: symbol.c symbol.h $(HCOMMON)
+	$(CC) -c $(CFLAGS) symbol.c
 
 ###########################################################################
 #
