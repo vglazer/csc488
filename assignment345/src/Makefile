@@ -121,11 +121,11 @@ parser.tab.c: parser.y $(HCOMMON)
 #	
 ###########################################################################
 
-.depend: scanner.c parser.tab.c
-	touch  .depend
-	
 depend: .depend
 	$(MAKEDEP)  $(CFILES) 
+
+.depend: scanner.c parser.tab.c
+	touch  .depend
 
 ###########################################################################
 #	
@@ -148,7 +148,7 @@ codegen.o: codegen.c codegen.h machine.h machineDef.h $(HCOMMON)
 machine.o: machine.c machine.h machineDef.h $(HCOMMON)
 	$(CC) -c $(CFLAGS) machine.c
 
-main.o: main.c ast.h semantics.h symbol.h machine.h $(HCOMMON) 
+main.o: main.c ast.h machine.h semantics.h symbol.h $(HCOMMON) 
 	$(CC) -c $(CFLAGS) main.c
 
 parser.o: parser.tab.c $(HCOMMON)
