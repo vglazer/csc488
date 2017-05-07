@@ -1,29 +1,27 @@
-.de Ip
-.br
-.ie \\n.$>=3 .ne \\$3
-.el .ne 3
+.DE Ip
+.BR
+.IE \\n.$>=3 .ne \\$3
+.EL .ne 3
 .IP "\\$1" \\$2
 ..
 .\"
-.\"   Compiler Man Version:   $Id: compiler488.man,v 1.1 2003/02/27 14:09:56 g1u Exp $
 .\"
 .TH COMPILER488 1 "4 February 1999" "CSC488S Compiler"
 .SH NAME
 compiler488 \- a compiler for the CSC 488S Project Language
 .SH SYNOPSIS
-.in +\w'\fBcompiler488 \fR'u
-.ti -\w'\fBcompiler488 \fR'u
-.B compiler488\
-\ \ [\ \fB\-X\fR\ ]\ \ \
-[\ \fB\-D\fR[\fIabxy\fR]\ ]\ \ \ [\ \fB\-T\fR[\fIacilpsxy\fR]\ ]\
-[\ \fB\-O\fR\ \fIoutputFilename\fR\ ]
-.br
-\ [\ \fB\-E\fR\ \fIerrorFilename\fR\ ]\
-\ [\ \fB\-R\fR\ \fItraceFilename\fR\ ]\
-\ [\ \fB\-U\fR\ \fIdumpFilename\fR\ ]
-.br
-\ [\ \fB\-I\fR\ \fIrunInputFilename\fR\ ]
-\ [\ \fI\ sourceFile\ \fR\ ]
+.IN +\w'\fBcompiler488 \fR'u
+.TI -\w'\fBcompiler488 \fR'u
+.B compiler488\ 
+[ \fB\-X\fR\ ]
+[ \fB\-D\fR[\fIabxy\fR] ]
+[ \fB\-T\fR[\fIacilpsxy\fR] ]
+[ \fB\-O\fR\ \fIoutputFilename\fR\ ]
+[ \fB\-E\fR\ \fIerrorFilename\fR\ ]
+[ \fB\-R\fR\ \fItraceFilename\fR\ ]
+[ \fB\-U\fR\ \fIdumpFilename\fR\ ]
+[ \fB\-I\fR\ \fIrunInputFilename\fR\ ]
+[ \fI\ sourceFile\ \fR\ ]
 .SH DESCRIPTION
 .B compiler488
 is an incredibly well designed and implemented compiler for the
@@ -47,11 +45,11 @@ Specify dump options.  The letters \fIabxy\fR indicate which information
 should be dumped to the compilers \fIdumpFile\fR.
 .RS
 \fIa\fR \- dump Abstract Syntax Tree after Pass 1
-.br
+.BR
 \fIb\fR \- dump Abstract Syntax Tree after Pass 2
-.br
+.BR
 \fIx\fR \- dump the compiled code just before execution
-.br
+.BR
 \fIy\fR \- dump symbol table information
 .RE
 .TP
@@ -61,19 +59,19 @@ information
 should be written to the compilers \fItraceFile\fR.
 .RS
 \fIa\fR \- trace Abstract Syntax Tree operations
-.br
+.BR
 \fIc\fR \- trace code generation
-.br
+.BR
 \fIi\fR \- trace source program input in the scanner
-.br
+.BR
 \fIl\fR \- trace tokens in lexical analysis
-.br
+.BR
 \fIp\fR \- trace parsing
-.br
+.BR
 \fIs\fR \- trace semantic analysis
-.br
+.BR
 \fIx\fR \- trace program execution
-.br
+.BR
 \fIy\fR \- trace symbol table operations
 .RE
 .TP 12
@@ -83,7 +81,7 @@ Default for error messages is stderr.
 .TP
 .BI \-O \ \ \ \fIoutputFileName\fR
 Specify an alternative file to receive ordinary compiler output (includes
-compilation and execution). Default is stdout
+compilation and execution). Default for compiler output is stdout.
 .TP
 .BR \-R \ \ \ \fItraceFileName\fR
 Specify an alternative file to receive compiler trace informantion.
@@ -94,7 +92,7 @@ Specify an alternative file to receive compiler dump information.
 Default for dump information is stdout.
 .TP
 .BR \-I \ \ \ \fIrunInputFileName\fR
-Specify an alternative file to serve as a souce of input during
+Specify an alternative file to serve as a source of input during
 execution of the compiled program.
 Default for execution time input is stdin.
 .SH ENVIRONMENT
@@ -116,6 +114,3 @@ were skillfully designed and implemented by
 .B PUT YOUR NAMES HERE
 .SH BUGS
 There are none; only a few unexpected features.
-
-
-
