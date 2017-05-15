@@ -28,10 +28,10 @@ int testSymbolTable(void)
     LOG("Initializing symbol table...");
     symbolInitialize();
 
-    LOG("Entering scope...");
+    LOG("Entering scope 0...");
     symbolEnterScope();
 
-    LOG("Adding scalar integer i, initialized to 0");
+    LOG("Adding integer scalar i");
     LitObjP litobj = mkLit(Dint, 0);
     ExpnP expn = mkExpn_const(litobj, line); /* this frees the literal */
     DeclP var_decl = mkDecl_var_type(Dint, line++);
@@ -41,12 +41,12 @@ int testSymbolTable(void)
     var_decl = mkDecl_var_ident(var_decl, token); /* does _not_ allocate memory */
     symbolAddDecl(var_decl);
 
-    LOG("Adding scalar integer j, initialized to 0");
+    LOG("Adding integer scalar j");
     token.str = "j";
     var_decl = mkDecl_var_ident(var_decl, token);
     symbolAddDecl(var_decl);
 
-    LOG("Adding scalar boolean b, initialized to 0");
+    LOG("Adding boolean scalar b");
     litobj = mkLit(Dbool, 0); /* freed, so we can reuse */
     free(expn);
     expn = mkExpn_const(litobj, line);
@@ -56,6 +56,16 @@ int testSymbolTable(void)
     token.str = "b";
     var_decl = mkDecl_var_ident(var_decl, token);
     symbolAddDecl(var_decl);
+
+    LOG("Adding integer array a of size 20");
+    free(var_decl);
+    var_decl = mkDecl_var_type(Dint, line++);
+    var_decl = mkDecl_arr(var_decl, 20);
+    token.str = "a";
+    var_decl = mkDecl_var_ident(var_decl, token);
+    symbolAddDecl(var_decl);
+
+    symbolDumpTable(dumpFile);
 
 #if 0
     SymbTabEntryP entry;
