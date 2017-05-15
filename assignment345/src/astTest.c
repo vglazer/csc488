@@ -32,38 +32,37 @@ int testSymbolTable(void)
     symbolEnterScope();
 
     LOG("Adding integer scalar i");
-    LitObjP litobj = mkLit(Dint, 0);
-    ExpnP expn = mkExpn_const(litobj, line); /* this frees the literal */
-    DeclP var_decl = mkDecl_var_type(Dint, line++);
-    var_decl = mkDecl_scalar(var_decl, expn); /* does _not_ allocate memory */
+    DeclP var_decl = mkDecl_var_type(Dint, line++); /* allocates memory */
+    var_decl = mkDecl_scalar(var_decl, NULL); /* no initializing expression */
     tokentype token;
     token.str = "i";
-    var_decl = mkDecl_var_ident(var_decl, token); /* does _not_ allocate memory */
+    var_decl = mkDecl_var_ident(var_decl, token);
     symbolAddDecl(var_decl);
+    free(var_decl);
 
     LOG("Adding integer scalar j");
+    var_decl = mkDecl_var_type(Dint, line++); /* allocates memory */
+    var_decl = mkDecl_scalar(var_decl, NULL); /* no initializing expression */
     token.str = "j";
     var_decl = mkDecl_var_ident(var_decl, token);
     symbolAddDecl(var_decl);
+    free(var_decl);
 
     LOG("Adding boolean scalar b");
-    litobj = mkLit(Dbool, 0); /* freed, so we can reuse */
-    free(expn);
-    expn = mkExpn_const(litobj, line);
-    free(var_decl);
     var_decl = mkDecl_var_type(Dbool, line++);
-    var_decl = mkDecl_scalar(var_decl, expn);
+    var_decl = mkDecl_scalar(var_decl, NULL); /* no initializing expression */
     token.str = "b";
     var_decl = mkDecl_var_ident(var_decl, token);
     symbolAddDecl(var_decl);
+    free(var_decl);
 
     LOG("Adding integer array a of size 20");
-    free(var_decl);
     var_decl = mkDecl_var_type(Dint, line++);
     var_decl = mkDecl_arr(var_decl, 20);
     token.str = "a";
     var_decl = mkDecl_var_ident(var_decl, token);
     symbolAddDecl(var_decl);
+    free(var_decl);
 
     symbolDumpTable(dumpFile);
 
