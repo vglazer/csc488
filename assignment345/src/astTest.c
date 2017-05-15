@@ -23,6 +23,40 @@ typedef struct SymbTabEntry_tag *SymbTabEntryP;
 
 int testSymbolTable(void)
 {
+    DESC("Manual testing of symbol table fns.");
+
+    LOG("Initializing symbol table...");
+    symbolInitialize();
+
+    LOG("Entering scope...");
+    symbolEnterScope();
+
+    LOG("Adding scalar integer i, initialized to 0");
+    LitObjP litobj = mkLit(Dint, 0);
+    ExpnP expn = mkExpn_const(litobj, line); /* this frees the literal */
+    DeclP var_decl = mkDecl_var_type(Dint, line++);
+    var_decl = mkDecl_scalar(var_decl, expn); /* does _not_ allocate memory */
+    tokentype token;
+    token.str = "i";
+    var_decl = mkDecl_var_ident(var_decl, token); /* does _not_ allocate memory */
+    symbolAddDecl(var_decl);
+
+    LOG("Adding scalar integer j, initialized to 0");
+    token.str = "j";
+    var_decl = mkDecl_var_ident(var_decl, token);
+    symbolAddDecl(var_decl);
+
+    LOG("Adding scalar boolean b, initialized to 0");
+    litobj = mkLit(Dbool, 0); /* freed, so we can reuse */
+    free(expn);
+    expn = mkExpn_const(litobj, line);
+    free(var_decl);
+    var_decl = mkDecl_var_type(Dbool, line++);
+    var_decl = mkDecl_scalar(var_decl, expn);
+    token.str = "b";
+    var_decl = mkDecl_var_ident(var_decl, token);
+    symbolAddDecl(var_decl);
+
 #if 0
     SymbTabEntryP entry;
     /* manual testing of symbol table fns. */
