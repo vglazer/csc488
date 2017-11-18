@@ -66,38 +66,14 @@ int testSymbolTable(void)
 
     symbolDumpTable(dumpFile);
 
-#if 0
-    SymbTabEntryP entry;
-    /* manual testing of symbol table fns. */
-    symbolInitialize();
-    symbolEnterScope();
-    symbolAdd("i", VAR, SCALAR_INT, 0); 
-    symbolAdd("j", VAR, SCALAR_INT, 0); 
-    symbolAdd("b", VAR, SCALAR_BOOL, 0);
-    symbolAdd("a", VAR, ARRAY_INT, 20);
-    symbolAdd("foo", PROC, NONE, 0); 
-    symbolDumpTable(dumpFile);
-    symbolEnterScope(); 
-    symbolAdd("i", VAR, SCALAR_INT, 0); 
-    symbolAdd("j", VAR, SCALAR_INT, 0);
-    symbolAdd("bar", FUNC, NONE, 0);
-    symbolEnterScope(); 
-    symbolAdd("l", VAR, SCALAR_INT, 0);
-    symbolAdd("j", VAR, SCALAR_INT, 0);
-    symbolDumpTable(dumpFile);
-    entry = symbolLookup("i");
-    fprintf(dumpFile, "Looking up symbol i, result:\n");
-    symbolDumpTableEntry(dumpFile, entry,-1); 
+    LOG("Exiting scope 0...");
     symbolExitScope();
-    symbolAdd("k", VAR, SCALAR_INT, 0);
+
     symbolDumpTable(dumpFile);
-    symbolExitScope();
-    symbolAdd("k", VAR, SCALAR_INT, 0);
-    symbolDumpTable(dumpFile);
-    symbolExitScope();
-    symbolDumpTable(dumpFile);
+
+    LOG("Finalizing symbol table...");
     symbolFinalize();
-#endif
+
     return 1;
 }
 
