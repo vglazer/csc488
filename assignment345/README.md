@@ -1239,10 +1239,10 @@ A program using recursive functions with parameters.
                 PUSH [ label condf ] 
                 BF 
 
-                ADDR 1 0                ; result 1
+                ADDR 1 0                 ; result 1
                 PUSH 3
                 SUB
-                PUSH 1                  ; push value of expn
+                PUSH 1                   ; push value of expn
                 STORE
                 PUSH [ label funclean ]  
                 BR 
