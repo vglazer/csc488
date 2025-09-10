@@ -1256,7 +1256,7 @@ A program using recursive functions with parameters.
                  ADDR 1 0                ; back up display 
                  PUSH [ label retaddr ]  ; push return address 
 
-                                    ; load arguments 
+                                         ; load arguments
                  ADDR 1 0                ; load the first arg passed in, (n)
                  LOAD                    ; load n
                  PUSH 1   
