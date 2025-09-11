@@ -48,7 +48,7 @@ BISONFLAGS = --debug --file-prefix=parser --defines --verbose
 ###########################################################################
 
 CC = gcc
-CFLAGS = -Wall -ansi -pedantic -Werror -std=gnu99 
+CFLAGS = -Wall -ansi -pedantic -Werror -Wno-strict-prototypes -std=gnu99
 CFLAGS_DBG = -g
 CFLAGS_OPT = -O2 -DNDEBUG
 
