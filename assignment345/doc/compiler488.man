@@ -1,4 +1,4 @@
-.TH COMPILER488 1 "4 February 1999" "CSC488S Compiler"
+.TH COMPILER488 1 "Spring 2003 (Group c488h05)" "CSC488S Compiler"
 .SH NAME
 compiler488 \- a compiler for the CSC 488S Project Language
 .SH SYNOPSIS
