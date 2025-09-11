@@ -1,11 +1,3 @@
-.DE Ip
-.BR
-.IE \\n.$>=3 .ne \\$3
-.EL .ne 3
-.IP "\\$1" \\$2
-..
-.\"
-.\"
 .TH COMPILER488 1 "4 February 1999" "CSC488S Compiler"
 .SH NAME
 compiler488 \- a compiler for the CSC 488S Project Language
@@ -111,6 +103,6 @@ and Marsha Chechik (scanner).
 Parse tree creation, semantic analysis, code generation and the 
 symbol table mechanisms
 were skillfully designed and implemented by 
-.B PUT YOUR NAMES HERE
+.B Ryan MacLean, Victor Glazer, Jacob Tseng and jon pipitone
 .SH BUGS
 There are none; only a few unexpected features.
