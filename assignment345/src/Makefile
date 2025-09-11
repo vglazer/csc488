@@ -55,10 +55,8 @@ CFLAGS_OPT = -O2 -DNDEBUG
 PLATFORM = $(shell uname -s)
 ifeq ($(PLATFORM),Darwin)
 	FLEXLIB = l
-	PSTOPDF = pstopdf
 else
 	FLEXLIB = fl
-	PSTOPDF = ps2pdf
 endif
 
 #	Linker flags
@@ -185,6 +183,8 @@ MANFILE = ../doc/$(TARGET).man
 
 $(TARGET).ps: $(MANFILE)
 	$(PSROFF) $(PSFLAGS) $(MANFILE) > $(TARGET).ps
+
+PSTOPDF = ps2pdf
 
 $(TARGET).pdf: $(TARGET).ps
 	$(PSTOPDF) $(TARGET).ps
