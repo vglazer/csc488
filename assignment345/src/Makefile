@@ -81,9 +81,9 @@ OFILES = main.o scanner.o parser.o semantics.o codegen.o symbol.o machine.o ast.
 TARGET = compiler488
 AST_TEST_TARGET = astTest
 
-all:	compiler_dbg ast_test_dbg rest
+all:	compiler_dbg ast_test_dbg test rest
 dbg:	all
-opt:	compiler_opt ast_test_opt rest
+opt:	compiler_opt ast_test_opt test rest
 rest:	textman pdfman tags
 
 compiler: compiler_dbg
