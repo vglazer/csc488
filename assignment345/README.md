@@ -1210,7 +1210,7 @@ A program using recursive functions with parameters.
 ### Project machine assembly
 
     ; start of body of main scope
-    :startpt    ADDR 0 0                 ; back up display 
+    :startpt    ADDR 0 0                 ; back up display
                 PUSH 0                   ; add space for return of factorial(5)
                 ADDR 1 0 
                 PUSH [ label retaddr ] 
@@ -1247,37 +1247,37 @@ A program using recursive functions with parameters.
                 PUSH [ label funclean ]  
                 BR 
 
-     :condf      ADDR 1 0                ; address of return value
-                 PUSH 3
-                 SUB 
+     :condf     ADDR 1 0                 ; address of return value
+                PUSH 3
+                SUB
 
                                          ; call factorial
-                 PUSH 0                  ; space for result
-                 ADDR 1 0                ; back up display 
-                 PUSH [ label retaddr ]  ; push return address 
+                PUSH 0                   ; space for result
+                ADDR 1 0                 ; back up display
+                PUSH [ label retaddr ]   ; push return address
 
                                          ; load arguments
-                 ADDR 1 0                ; load the first arg passed in, (n)
-                 LOAD                    ; load n
-                 PUSH 1   
-                 SUB                     ; subtract 1 from n
+                ADDR 1 0                 ; load the first arg passed in, (n)
+                LOAD                     ; load n
+                PUSH 1
+                SUB                      ; subtract 1 from n
 
-                 PUSH [ label factorial ]; go to beginning of function
-                 BR
+                PUSH [ label factorial ] ; go to beginning of function
+                BR
 
-     :retaddr    SETD 1 
+     :retaddr   SETD 1
                                          ; multiply result by n
-                 ADDR 1 0 
-                 LOAD                    ; load n again
-                 MUL                     ; multiply n with factorial(n-1) 
+                ADDR 1 0
+                LOAD                     ; load n again
+                MUL                      ; multiply n with factorial(n-1)
 
-                 STORE                   ; store result  
-                 PUSH [ label funclean ] 
-                 BR                      ; end result factorial(n-1) * n
+                STORE                    ; store result
+                PUSH [ label funclean ]
+                BR                       ; end result factorial(n-1) * n
 
-     :funclean   PUSHMT 
-                 ADDR 1 0
-                 SUB
-                 POPN
-                 BR
+     :funclean  PUSHMT
+                ADDR 1 0
+                SUB
+                POPN
+                BR
 
